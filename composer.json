@@ -1,12 +1,12 @@
 {
-    "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
-    "license": "BSD-3-Clause",
+    "name": "photo-gallery",
+    "description": "A photo gallery written with zend-framework2",
+    "license": "MIT",
     "keywords": [
         "framework",
-        "zf2"
+        "zf2",
+        "photo gallery"
     ],
-    "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*"
