@@ -2,6 +2,8 @@
 return array(
     'modules' => array(
         'Application',
+        'ZfcBase',
+        'ZfcUser',
         'Album',
     ),
     'module_listener_options' => array(

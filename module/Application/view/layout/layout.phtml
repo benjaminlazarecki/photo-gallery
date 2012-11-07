@@ -38,6 +38,17 @@
             </div>
         </div>
         <div class="container">
+            <?php
+            $currentView = $this->viewModel()->getCurrent()->getChildren()[0];
+
+            if (isset($currentView->flashMessages) && count($currentView->flashMessages)) : ?>
+                <ul class="flashMessages">
+                    <?php foreach ($currentView->flashMessages as $fMessage) : ?>
+                    <li><?php echo $fMessage; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
             <?php echo $this->content; ?>
             <hr>
             <footer>
