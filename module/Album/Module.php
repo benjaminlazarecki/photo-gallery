@@ -2,10 +2,8 @@
 
 namespace Album;
 
-use Album\Model\Album;
-use Album\Model\AlbumTable;
 use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
+use Zend\EventManager\EventInterface;
 
 class Module
 {
@@ -25,22 +23,18 @@ class Module
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function getServiceConfig()
+    public function onBootstrap(EventInterface $e)
     {
-        return array(
-            'factories' => array(
-                'Album\Model\AlbumTable' =>  function($sm) {
-                    $tableGateway = $sm->get('AlbumTableGateway');
-                    $table = new AlbumTable($tableGateway);
-                    return $table;
-                },
-                'AlbumTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Album());
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
-                },
-            ),
-        );
+        $application = $e->getApplication();
+        $serviceManager = $application->getServiceManager();
+
+        $controllerLoader = $serviceManager->get('ControllerLoader');
+
+        // Add initializer to Controller Service Manager that check if controllers needs entity manager injection
+        $controllerLoader->addInitializer(function ($instance) use ($serviceManager) {
+            if (method_exists($instance, 'setEntityManager')) {
+                $instance->setEntityManager($serviceManager->get('doctrine.entitymanager.orm_default'));
+            }
+        });
     }
 }
