@@ -11,6 +11,10 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class ImageController extends AbstractActionController
 {
+    public function showAction($id)
+    {
+
+    }
     public function addAction()
     {
 
