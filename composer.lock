@@ -149,12 +149,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "a2065932cf09774544d5ad02ae57474ce2e4a914"
+                "reference": "5787eb8bcbc974308d8c31eb1da7a6b5044e7715"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcUser/archive/a2065932cf09774544d5ad02ae57474ce2e4a914.zip",
-                "reference": "a2065932cf09774544d5ad02ae57474ce2e4a914",
+                "url": "https://github.com/ZF-Commons/ZfcUser/archive/5787eb8bcbc974308d8c31eb1da7a6b5044e7715.zip",
+                "reference": "5787eb8bcbc974308d8c31eb1da7a6b5044e7715",
                 "shasum": ""
             },
             "require": {
@@ -162,7 +162,7 @@
                 "zf-commons/zfc-base": "dev-master",
                 "zendframework/zendframework": "2.*"
             },
-            "time": "1351458751",
+            "time": "1352735726",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -192,7 +192,9 @@
             ]
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
