@@ -7,10 +7,12 @@
         "zf2",
         "photo gallery"
     ],
+    "minimum-stability": "alpha",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
         "zf-commons/zfc-base": "dev-master",
-        "zf-commons/zfc-user": "dev-master"
+        "zf-commons/zfc-user": "dev-master",
+        "doctrine/doctrine-orm-module": "0.*"
     }
 }

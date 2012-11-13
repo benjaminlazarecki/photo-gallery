@@ -4,6 +4,8 @@ return array(
         'Application',
         'ZfcBase',
         'ZfcUser',
+        'DoctrineModule',
+        'DoctrineORMModule',
         'Album',
     ),
     'module_listener_options' => array(
