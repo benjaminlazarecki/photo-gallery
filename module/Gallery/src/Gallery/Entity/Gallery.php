@@ -1,16 +1,23 @@
 <?php
 
-namespace Gallery\Model;
+namespace Gallery\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Represent a user gallery.
+ *
+ * @ORM\Entity
+ * @ORM\Table(name = "gallery")
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>
  */
 class Gallery
 {
     /**
-     * @var integer Id.
+     * @ORM\Id
+     * @ORM\Column(type="integer");
+     * @ORM\GeneratedValue
      */
     private $id;
 
@@ -21,6 +28,11 @@ class Gallery
 
     /**
      * @var array The images.
+     *
+     * @ORM\OneToMany(
+     *      targetEntity = "Image",
+     *      mappedBy     = "gallery"
+     * )
      */
     private $images;
 

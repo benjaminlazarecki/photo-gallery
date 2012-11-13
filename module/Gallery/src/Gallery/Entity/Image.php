@@ -1,26 +1,45 @@
 <?php
 
-namespace Gallery\Model;
+namespace Gallery\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * Represent an image upload by a user.
+ *
+ * @ORM\Entity
+ * @ORM\Table(name = "image")
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>
  */
 class Image
 {
     /**
-     * @var integer Id.
+     * @ORM\Id
+     * @ORM\Column(type="integer");
+     * @ORM\GeneratedValue
      */
     private $id;
 
     /**
      * @var string The image name.
+     *
+     * @ORM\Column(
+     *      type   = "string",
+     *      length = 255
+     * )
      */
     private $name;
 
     /**
      * @var Gallery The gallery who contain this image.
+     *
+     * @ORM\ManyToOne(
+     *      targetEntity = "Gallery",
+     *      inversedBy   = "images"
+     * )
+     * @ORM\JoinColumn(name = "gallery_id")
      */
     private $gallery;
 
