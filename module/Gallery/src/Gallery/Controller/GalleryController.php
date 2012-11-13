@@ -11,6 +11,11 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class GalleryController extends AbstractActionController
 {
+    /**
+     * Dsplay a gallery.
+     *
+     * @param integer $owner
+     */
     public function showAction($owner)
     {
 
