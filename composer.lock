@@ -1,5 +1,5 @@
 {
-    "hash": "3458e75a52c8668c29845973a06bb643",
+    "hash": "033af8d638ecab232b2466ca65e78f82",
     "packages": [
         {
             "name": "doctrine/common",
@@ -246,25 +246,25 @@
         },
         {
             "name": "doctrine/doctrine-orm-module",
-            "version": "0.5.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "0.5.3"
+                "reference": "d51b5b28746e6114bee912045694f852076c6630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineORMModule/zipball/0.5.3",
-                "reference": "0.5.3",
+                "url": "https://github.com/doctrine/DoctrineORMModule/archive/d51b5b28746e6114bee912045694f852076c6630.zip",
+                "reference": "d51b5b28746e6114bee912045694f852076c6630",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "doctrine/doctrine-module": ">=0.5.1",
                 "doctrine/orm": ">=2.3-dev,<2.5-dev",
                 "doctrine/dbal": ">=2.3-dev,<2.5-dev",
+                "zendframework/zendframework": "2.*",
                 "doctrine/migrations": "1.*",
-                "zendframework/zendframework": "2.*"
+                "doctrine/doctrine-module": ">=0.5.1"
             },
             "require-dev": {
                 "zendframework/zend-developer-tools": "dev-master"
@@ -272,9 +272,9 @@
             "suggest": {
                 "zendframework/zend-developer-tools": "zend-developer-tools if you want to profile operations executed by the ORM during development"
             },
-            "time": "2012-10-16 13:00:33",
+            "time": "1351004249",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "DoctrineORMModule\\": "src/",
@@ -437,6 +437,51 @@
             "keywords": [
                 "database",
                 "orm"
+            ]
+        },
+        {
+            "name": "hounddog/doctrine-data-fixture-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hounddog/DoctrineDataFixtureModule",
+                "reference": "df09e679f93cb5b625e47ebb1a6976ca17d1dc0b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/Hounddog/DoctrineDataFixtureModule/archive/df09e679f93cb5b625e47ebb1a6976ca17d1dc0b.zip",
+                "reference": "df09e679f93cb5b625e47ebb1a6976ca17d1dc0b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "doctrine/doctrine-orm-module": "dev-master",
+                "zendframework/zendframework": "2.*"
+            },
+            "time": "1349948281",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "DoctrineDataFixtureModule": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Shwalbe",
+                    "email": "martin.shwalbe@gmail.com"
+                }
+            ],
+            "description": "Zend Framework 2 Module that provides Doctrine Data-Fixture functionality",
+            "homepage": "http://www.doctrine-project.org/",
+            "keywords": [
+                "zf2",
+                "module",
+                "doctrine",
+                "data-fixture"
             ]
         },
         {
@@ -686,6 +731,8 @@
     "minimum-stability": "alpha",
     "stability-flags": {
         "zf-commons/zfc-base": 20,
-        "zf-commons/zfc-user": 20
+        "zf-commons/zfc-user": 20,
+        "doctrine/doctrine-orm-module": 20,
+        "hounddog/doctrine-data-fixture-module": 20
     }
 }

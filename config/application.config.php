@@ -6,6 +6,7 @@ return array(
         'ZfcUser',
         'DoctrineModule',
         'DoctrineORMModule',
+        'DoctrineDataFixtureModule',
         'Album',
     ),
     'module_listener_options' => array(
