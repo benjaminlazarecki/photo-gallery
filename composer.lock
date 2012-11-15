@@ -1,5 +1,5 @@
 {
-    "hash": "033af8d638ecab232b2466ca65e78f82",
+    "hash": "012ca8184c5ce35cc792465303023322",
     "packages": [
         {
             "name": "doctrine/common",
@@ -246,25 +246,25 @@
         },
         {
             "name": "doctrine/doctrine-orm-module",
-            "version": "dev-master",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "d51b5b28746e6114bee912045694f852076c6630"
+                "reference": "0.5.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/DoctrineORMModule/archive/d51b5b28746e6114bee912045694f852076c6630.zip",
-                "reference": "d51b5b28746e6114bee912045694f852076c6630",
+                "url": "https://github.com/doctrine/DoctrineORMModule/zipball/0.5.3",
+                "reference": "0.5.3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
+                "doctrine/doctrine-module": ">=0.5.1",
                 "doctrine/orm": ">=2.3-dev,<2.5-dev",
                 "doctrine/dbal": ">=2.3-dev,<2.5-dev",
-                "zendframework/zendframework": "2.*",
                 "doctrine/migrations": "1.*",
-                "doctrine/doctrine-module": ">=0.5.1"
+                "zendframework/zendframework": "2.*"
             },
             "require-dev": {
                 "zendframework/zend-developer-tools": "dev-master"
@@ -272,9 +272,9 @@
             "suggest": {
                 "zendframework/zend-developer-tools": "zend-developer-tools if you want to profile operations executed by the ORM during development"
             },
-            "time": "1351004249",
+            "time": "2012-10-16 13:00:33",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "DoctrineORMModule\\": "src/",
@@ -440,51 +440,6 @@
             ]
         },
         {
-            "name": "hounddog/doctrine-data-fixture-module",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Hounddog/DoctrineDataFixtureModule",
-                "reference": "df09e679f93cb5b625e47ebb1a6976ca17d1dc0b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/Hounddog/DoctrineDataFixtureModule/archive/df09e679f93cb5b625e47ebb1a6976ca17d1dc0b.zip",
-                "reference": "df09e679f93cb5b625e47ebb1a6976ca17d1dc0b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "doctrine/doctrine-orm-module": "dev-master",
-                "zendframework/zendframework": "2.*"
-            },
-            "time": "1349948281",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "DoctrineDataFixtureModule": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Martin Shwalbe",
-                    "email": "martin.shwalbe@gmail.com"
-                }
-            ],
-            "description": "Zend Framework 2 Module that provides Doctrine Data-Fixture functionality",
-            "homepage": "http://www.doctrine-project.org/",
-            "keywords": [
-                "zf2",
-                "module",
-                "doctrine",
-                "data-fixture"
-            ]
-        },
-        {
             "name": "symfony/console",
             "version": "v2.1.3",
             "target-dir": "Symfony/Component/Console",
@@ -624,7 +579,16 @@
                     "Zend\\": "library/",
                     "ZendTest\\": "tests/"
                 }
-            }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 2",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "framework",
+                "zf2"
+            ]
         },
         {
             "name": "zf-commons/zfc-base",
@@ -636,7 +600,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/ZF-Commons/ZfcBase/zipball/38990ad5f51002dd271ab676b90a3d59728190e2",
+                "url": "https://github.com/ZF-Commons/ZfcBase/archive/38990ad5f51002dd271ab676b90a3d59728190e2.zip",
                 "reference": "38990ad5f51002dd271ab676b90a3d59728190e2",
                 "shasum": ""
             },
@@ -644,6 +608,7 @@
                 "php": ">=5.3.3",
                 "zendframework/zendframework": "2.*"
             },
+            "time": "1351100548",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -670,8 +635,7 @@
             "homepage": "https://github.com/ZF-Commons/ZfcBase",
             "keywords": [
                 "zf2"
-            ],
-            "time": "1351100548"
+            ]
         },
         {
             "name": "zf-commons/zfc-user",
@@ -692,6 +656,7 @@
                 "zf-commons/zfc-base": "dev-master",
                 "zendframework/zendframework": "2.*"
             },
+            "time": "1352735726",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -718,8 +683,57 @@
             "homepage": "https://github.com/ZF-Commons/ZfcUser",
             "keywords": [
                 "zf2"
+            ]
+        },
+        {
+            "name": "zf-commons/zfc-user-doctrine-orm",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/ZF-Commons/ZfcUserDoctrineORM.git",
+                "reference": "9007c8b29ed38763ffea433e30b31e5ee22645f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/ZF-Commons/ZfcUserDoctrineORM/archive/9007c8b29ed38763ffea433e30b31e5ee22645f2.zip",
+                "reference": "9007c8b29ed38763ffea433e30b31e5ee22645f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zf-commons/zfc-base": "dev-master",
+                "zf-commons/zfc-user": "dev-master",
+                "zendframework/zendframework": "2.*",
+                "doctrine/doctrine-orm-module": "0.*"
+            },
+            "time": "1351713523",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "ZfcUserDoctrineORM": "src/"
+                },
+                "classmap": [
+                    "./"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Kyle Spraggs",
+                    "email": "theman@spiffyjr.me",
+                    "homepage": "http://www.spiffyjr.me/"
+                },
+                {
+                    "name": "Evan Coury",
+                    "email": "me@evancoury.com",
+                    "homepage": "http://blog.evan.pro/"
+                }
             ],
-            "time": "1352735726"
+            "description": "Doctrine2 ORM storage adapter for ZfcUser.",
+            "homepage": "https://github.com/ZF-Commons/ZfcUserDoctrineORM",
+            "keywords": [
+                "zf2"
+            ]
         }
     ],
     "packages-dev": [
@@ -732,7 +746,6 @@
     "stability-flags": {
         "zf-commons/zfc-base": 20,
         "zf-commons/zfc-user": 20,
-        "doctrine/doctrine-orm-module": 20,
-        "hounddog/doctrine-data-fixture-module": 20
+        "zf-commons/zfc-user-doctrine-orm": 20
     }
 }

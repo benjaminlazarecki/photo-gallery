@@ -1,20 +1,8 @@
 <?php
 
-namespace Gallery;
+namespace User;
 
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'Gallery\Controller\Gallery' => 'Gallery\Controller\GalleryController',
-        ),
-    ),
-
-    'view_manager' => array(
-        'template_path_stack' => array(
-            'gallery' => __DIR__ . '/../view',
-        ),
-    ),
-
     'doctrine' => array(
         'driver' => array(
             __NAMESPACE__ . '_driver' => array(
@@ -28,6 +16,5 @@ return array(
                 )
             ),
         )
-
     ),
 );

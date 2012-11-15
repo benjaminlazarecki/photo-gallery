@@ -23,6 +23,12 @@ class Gallery
 
     /**
      * @var User The owner of the gallery.
+     *
+     * @ORM\OneToOne(targetEntity = "\User\Entity\User")
+     * @ORM\JoinColumn(
+     *      name                 = "owner_id",
+     *      referencedColumnName = "user_id"
+     * )
      */
     private $owner;
 
@@ -107,5 +113,4 @@ class Gallery
 
         return $this;
     }
-
 }

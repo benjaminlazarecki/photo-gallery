@@ -13,7 +13,6 @@
         "zendframework/zendframework": "2.*",
         "zf-commons/zfc-base": "dev-master",
         "zf-commons/zfc-user": "dev-master",
-        "doctrine/doctrine-orm-module": "dev-master",
-        "hounddog/doctrine-data-fixture-module": "dev-master"
+        "zf-commons/zfc-user-doctrine-orm": "dev-master"
     }
 }

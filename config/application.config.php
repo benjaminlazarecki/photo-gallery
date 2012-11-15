@@ -1,12 +1,14 @@
 <?php
 return array(
     'modules' => array(
-        'Application',
-        'ZfcBase',
-        'ZfcUser',
         'DoctrineModule',
         'DoctrineORMModule',
-        'DoctrineDataFixtureModule',
+        'ZfcBase',
+        'ZfcUser',
+        'ZfcUserDoctrineORM',
+
+        'Application',
+        'User',
         'Album',
         'Gallery'
     ),

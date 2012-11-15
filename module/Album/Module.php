@@ -2,7 +2,6 @@
 
 namespace Album;
 
-use Zend\Db\ResultSet\ResultSet;
 use Zend\EventManager\EventInterface;
 
 class Module
