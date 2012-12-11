@@ -11,6 +11,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class GalleryRepository extends EntityRepository
 {
+    /**
+     * Return all public gallery.
+     *
+     * @return array
+     */
     public function getAllPublicGallery()
     {
         $qb = $this->createQueryBuilder('gallery');

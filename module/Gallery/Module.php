@@ -4,8 +4,18 @@ namespace Gallery;
 
 use Zend\Db\ResultSet\ResultSet;
 
+/**
+ * Gallery Module
+ *
+ * @author Benjamin Lazarecki <benjamin@widop.com>
+ */
 class Module
 {
+    /**
+     * The config autoloader.
+     *
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return array(
@@ -17,23 +27,13 @@ class Module
         );
     }
 
+    /**
+     * Return the config.
+     *
+     * @return array
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
-
-//    public function onBootstrap(\Zend\EventManager\EventInterface $e)
-//    {
-//        $application = $e->getApplication();
-//        $serviceManager = $application->getServiceManager();
-//
-//        $controllerLoader = $serviceManager->get('ControllerLoader');
-//
-//        // Add initializer to Controller Service Manager that check if controllers needs entity manager injection
-//        $controllerLoader->addInitializer(function ($instance) use ($serviceManager) {
-//            if (method_exists($instance, 'setEntityManager')) {
-//                $instance->setEntityManager($serviceManager->get('doctrine.entitymanager.orm_default'));
-//            }
-//        });
-//    }
 }
