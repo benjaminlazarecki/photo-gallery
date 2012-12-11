@@ -3,7 +3,8 @@
 namespace Gallery\Controller;
 
 use Doctrine\ORM\EntityManager,
-    Zend\Mvc\Controller\AbstractActionController;
+    Zend\Mvc\Controller\AbstractActionController,
+    Zend\View\Helper\ViewModel;
 
 /**
  * Controller of gallery.
@@ -49,13 +50,39 @@ class GalleryController extends AbstractActionController
         $username = $this->getEvent()->getRouteMatch()->getParam('username');
 
         if ($username !== null) {
-            $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUserName($username);
+            $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
         } else {
-            // Select the logged in user
+            $owner = $this->getPluginManager()->get('zfcuserauthentication')->getIdentity();
+        }
+
+        if ($owner === null) {
+            return $this->redirect()->toRoute('zfcuser', array('action' => 'login'));
         }
 
         return array(
             'owner' => $owner,
         );
+    }
+
+    /**
+     * The homepage of the application.
+     *
+     * @return array|\Zend\View\Helper\ViewModel
+     */
+    public function indexAction()
+    {
+        $allGallery = $this->getEntityManager()->getRepository('Gallery\Entity\Gallery')->getAllPublicGallery();
+
+        // If there is no gallery in the application, redirect to the login form.
+        if (empty($allGallery)) {
+            return $this->redirect()->toRoute('zfcuser', array('action' => 'login'));
+        }
+
+        $randomGallery = $allGallery[rand(0, count($allGallery))];
+
+        return new ViewModel(array(
+            'randomGallery' => $randomGallery,
+            'allGallery'    => $allGallery
+        ));
     }
 }
