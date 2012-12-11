@@ -2,7 +2,10 @@
 
 namespace Gallery\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM,
+    Doctrine\Common\Collections\ArrayCollection;
+
+use User\Entity\User;
 
 /**
  * Represent a user gallery.
@@ -43,6 +46,14 @@ class Gallery
     private $images;
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
+
+    /**
      * Get id.
      *
      * @return integer
@@ -79,11 +90,11 @@ class Gallery
     /**
      * Set order.
      *
-     * @param User $owner
+     * @param \User\Entity\User $owner
      *
      * @return Gallery
      */
-    public function setOwner($owner)
+    public function setOwner(User $owner)
     {
         $this->owner = $owner;
 
