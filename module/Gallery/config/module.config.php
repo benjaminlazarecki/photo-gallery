@@ -9,6 +9,25 @@ return array(
         ),
     ),
 
+    'router' => array(
+        'routes' => array(
+            'gallery' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/gallery[/:action][/:username]',
+                    'constraints' => array(
+                        'action'   => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'username' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Gallery\Controller\Gallery',
+                        'action'     => 'show',
+                    ),
+                ),
+            ),
+        ),
+    ),
+
     'view_manager' => array(
         'template_path_stack' => array(
             'gallery' => __DIR__ . '/../view',

@@ -42,13 +42,17 @@ class GalleryController extends AbstractActionController
     /**
      * Display a gallery
      *
-     * @param $username
-     *
      * @return array
      */
-    public function showAction($username)
+    public function showAction()
     {
-        $owner = $this->getEntityManager()->getRepository('Album\Entity\Album')->findOneByUserName($username);
+        $username = $this->getEvent()->getRouteMatch()->getParam('username');
+
+        if ($username !== null) {
+            $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUserName($username);
+        } else {
+            // Select the logged in user
+        }
 
         return array(
             'owner' => $owner,
