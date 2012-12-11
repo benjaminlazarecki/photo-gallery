@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Represent a user gallery.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass = "Gallery\Repository\GalleryRepository")
  * @ORM\Table(name = "gallery")
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>
