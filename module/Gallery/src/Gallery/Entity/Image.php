@@ -45,6 +45,8 @@ class Image
 
     /**
      * @var boolean TRUE if the image is public, else FALSE.
+     *
+     * @ORM\Column(type = "boolean")
      */
     private $public;
 
@@ -52,6 +54,12 @@ class Image
      * @var null|integer The order in gallery.
      *
      * NULL if image is not public, else integer
+     *
+     * @ORM\Column(
+     *      name     = "position",
+     *      type     = "integer",
+     *      nullable = true
+     * )
      */
     private $order;
 
