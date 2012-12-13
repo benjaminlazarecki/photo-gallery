@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityManager,
     Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel;
 
+use Gallery\Entity\Image;
+
 /**
  * Controller of gallery.
  *
@@ -87,6 +89,35 @@ class GalleryController extends AbstractActionController
             'randomGallery' => $randomGallery,
             'allGallery'    => $allGallery
         );
+    }
+
+    /**
+     * The image add page.
+     *
+     * @return array
+     */
+    public function addAction()
+    {
+        $owner = $this->getPluginManager()->get('zfcuserauthentication')->getIdentity();
+
+        $form = new ImageForm();
+        $form->get('submit')->setAttribute('label', 'Add');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $image = new Image();
+
+            if ($form->isValid()) {
+                $image->populate($form->getData());
+                $owner->getGallery()->addImage($image);
+
+                $this->getEntityManager()->flush();
+
+                // TODO Add redirct to owner gallery
+            }
+        }
+
+        return array('form' => $form);
     }
 }
 
