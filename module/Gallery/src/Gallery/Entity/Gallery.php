@@ -125,3 +125,4 @@ class Gallery
         return $this;
     }
 }
+
