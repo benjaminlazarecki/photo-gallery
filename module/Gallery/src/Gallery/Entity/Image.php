@@ -115,6 +115,7 @@ class Image
      */
     public function setGallery(Gallery $gallery)
     {
+        $gallery->addImage($this);
         $this->gallery = $gallery;
 
         return $this;

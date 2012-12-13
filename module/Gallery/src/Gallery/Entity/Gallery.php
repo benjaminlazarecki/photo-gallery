@@ -5,7 +5,8 @@ namespace Gallery\Entity;
 use Doctrine\ORM\Mapping as ORM,
     Doctrine\Common\Collections\ArrayCollection;
 
-use User\Entity\User;
+use User\Entity\User,
+    Gallery\Entity\Image;
 
 /**
  * Represent a user gallery.
@@ -114,13 +115,29 @@ class Gallery
     /**
      * Set image.
      *
-     * @param array $images
+     * @param array|ArrayCollection $images
      *
      * @return Gallery
      */
     public function setImages($images)
     {
-        $this->images = $images;
+        foreach($images as $image) {
+            $this->addImage($image);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Add image to the gallery.
+     *
+     * @param Image $image The image.
+     *
+     * @return Gallery
+     */
+    public function addImage(Image $image)
+    {
+        $this->images[] = $image;
 
         return $this;
     }
