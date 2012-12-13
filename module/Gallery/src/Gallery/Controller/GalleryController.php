@@ -4,7 +4,7 @@ namespace Gallery\Controller;
 
 use Doctrine\ORM\EntityManager,
     Zend\Mvc\Controller\AbstractActionController,
-    Zend\View\Helper\ViewModel;
+    Zend\View\Model\ViewModel;
 
 /**
  * Controller of gallery.
@@ -73,16 +73,20 @@ class GalleryController extends AbstractActionController
     {
         $allGallery = $this->getEntityManager()->getRepository('Gallery\Entity\Gallery')->getAllPublicGallery();
 
-        // If there is no gallery in the application, redirect to the login form.
+        // If there is no gallery in the application, we display a message to user.
         if (empty($allGallery)) {
-            return $this->redirect()->toRoute('zfcuser', array('action' => 'login'));
+            $view = new ViewModel();
+            $view->setTemplate('gallery/gallery/empty');
+
+            return $view;
         }
 
         $randomGallery = $allGallery[rand(0, count($allGallery))];
 
-        return new ViewModel(array(
+        return array(
             'randomGallery' => $randomGallery,
             'allGallery'    => $allGallery
-        ));
+        );
     }
 }
+
