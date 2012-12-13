@@ -81,7 +81,7 @@ class GalleryController extends AbstractActionController
             return $view;
         }
 
-        $randomGallery = $allGallery[rand(0, count($allGallery))];
+        $randomGallery = $allGallery[rand(0, count($allGallery) - 1)];
 
         return array(
             'randomGallery' => $randomGallery,
