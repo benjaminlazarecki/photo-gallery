@@ -14,7 +14,7 @@ return array(
             'gallery' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/gallery[/:action][/:username]',
+                    'route'    => '/gallery[/:action[/:username]]',
                     'constraints' => array(
                         'action'   => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'username' => '[a-zA-Z][a-zA-Z0-9_-]*',

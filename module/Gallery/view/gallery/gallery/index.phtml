@@ -1,1 +1,23 @@
-ok
+<h2><?php echo $this->randomGallery->getOwner()->getUsername(); ?></h2>
+
+<p>Other</p>
+
+<ol>
+<?php foreach($this->allGallery as $gallery) : ?>
+    <?php $username = $gallery->getOwner()->getUsername(); ?>
+    <li>
+        <a href="<?= $this->url('gallery', array(
+            'action'   => 'show', 
+            'username' => $username)); ?>"><?= $username; ?></a>
+    </li>
+<?php endforeach; ?>
+</ol>
+
+<table class="table">
+    <tbody>
+        <?php foreach($this->randomGallery->getImages() as $image) : ?>
+            <?php /* display image */ ?>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+

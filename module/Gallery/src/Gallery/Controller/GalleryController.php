@@ -4,9 +4,12 @@ namespace Gallery\Controller;
 
 use Doctrine\ORM\EntityManager,
     Zend\Mvc\Controller\AbstractActionController,
-    Zend\View\Model\ViewModel;
+    Zend\View\Model\ViewModel,
+    Zend\Validator\File\Size;
 
-use Gallery\Entity\Image;
+use Gallery\Entity\Image,
+    Gallery\Form\ImageForm,
+    Gallery\Form\ImageFormValidator;
 
 /**
  * Controller of gallery.
@@ -106,10 +109,45 @@ class GalleryController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $image = new Image();
+            $form->setInputFilter(new ImageFormValidator());
 
+            $nonFile = $request->getPost()->toArray();
+            $File    = $this->params()->fromFiles('fileupload');
+            $data = array_merge(
+                 $nonFile,
+                 array('fileupload'=> $File['name'])
+             );
+
+            $form->setData($data);
             if ($form->isValid()) {
+
+                $size = new Size(array('max'=>2000000));
+                $adapter = new \Zend\File\Transfer\Adapter\Http();
+                $adapter->setValidators(array($size), $File['name']);
+
+                if (!$adapter->isValid()) {
+
+                    $dataError = $adapter->getMessages();
+                    $error = array();
+                    foreach($dataError as $key=>$row)
+                    {
+                        $error[] = $row;
+                    }
+                    $form->setMessages(array('file'=> $error));
+                } else {
+                    $config = $this->getServiceLocator()->get('Config');
+                    $uploadPath = $config['photo-gallery']['upload_path'];
+                    $adapter->setDestination(getcwd() . $uploadPath);
+                    if ($adapter->receive($File['name'])) {
+                        echo 'ok';
+                    }
+                }  
+
                 $image->populate($form->getData());
+                $image->setGallery($owner->getGallery());
                 $owner->getGallery()->addImage($image);
+
+                var_dump($image); die();
 
                 $this->getEntityManager()->flush();
 

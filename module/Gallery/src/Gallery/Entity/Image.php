@@ -115,7 +115,6 @@ class Image
      */
     public function setGallery(Gallery $gallery)
     {
-        $gallery->addImage($this);
         $this->gallery = $gallery;
 
         return $this;
@@ -198,13 +197,11 @@ class Image
      *
      * @param array $data
      */
-    public function exchangeArray($data)
+    public function populate($data)
     {
-        $this->id      = (isset($data['id']))      ? $data['id']      : null;
-        $this->name    = (isset($data['name']))    ? $data['name']    : null;
-        $this->gallery = (isset($data['gallery'])) ? $data['gallery'] : null;
-        $this->public  = (isset($data['public']))  ? $data['public']  : null;
-        $this->order   = (isset($data['order']))   ? $data['order']   : null;
+        $this->name    = $data['name'];
+        $this->public  = $data['public'];
+        $this->order   = $data['order'];
     }
 }
 

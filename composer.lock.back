@@ -1,5 +1,5 @@
 {
-    "hash": "2beb0d76991e3cb9c47faad47502159b",
+    "hash": "012ca8184c5ce35cc792465303023322",
     "packages": [
         {
             "package": "doctrine/common",
@@ -34,12 +34,6 @@
             "version": "v2.1.4"
         },
         {
-            "package": "zendframework/zend-developer-tools",
-            "version": "dev-master",
-            "source-reference": "e930bd2feaf13e046e6896d18d4218e31c3ddaf1",
-            "commit-date": "1351428639"
-        },
-        {
             "package": "zendframework/zendframework",
             "version": "2.0.5"
         },
@@ -68,7 +62,6 @@
     ],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "zendframework/zend-developer-tools": 20,
         "zf-commons/zfc-base": 20,
         "zf-commons/zfc-user": 20,
         "zf-commons/zfc-user-doctrine-orm": 20
