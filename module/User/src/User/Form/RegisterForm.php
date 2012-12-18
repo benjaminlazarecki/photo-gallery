@@ -2,8 +2,9 @@
 
 namespace User\Form;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
+use Zend\Form\Form,
+    Zend\Form\Element,
+    Zend\Captcha;
 
 /**
  * Represent a register form.
@@ -18,26 +19,28 @@ class RegisterForm extends Form
         parent::__construct('register');
 
         $email = new Element\Email('email');
-        $email->setLabel('email');
 
         $username = new Element\Text('username');
-        $username->setLabel('username');
 
         $age = new Element\Text('age'); // Wait for NumberFormatter
-        $age->setLabel('age');
+
+        $captcha = new Element\Captcha('captcha');
+        $captcha
+            ->setCaptcha(new Captcha\Figlet());
 
         $this->setAttribute('method', 'post');
 
         $this->add($email);
         $this->add($username);
         $this->add($age);
+        $this->add($captcha);
 
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
                 'value' => 'Add',
-                'id' => 'submitbutton',
+                'class' => 'btn btn-primary',
             ),
         ));
     }
