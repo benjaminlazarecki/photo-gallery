@@ -12,6 +12,9 @@ namespace Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
+/**
+ * Application module
+ */
 class Module
 {
     public function onBootstrap(MvcEvent $e)
@@ -20,6 +23,18 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $application = $e->getApplication();
+        $serviceManager = $application->getServiceManager();
+
+        $controllerLoader = $serviceManager->get('ControllerLoader');
+
+        // Add initializer to Controller Service Manager that check if controllers needs entity manager injection
+        $controllerLoader->addInitializer(function ($instance) use ($serviceManager) {
+            if (method_exists($instance, 'setEntityManager')) {
+                $instance->setEntityManager($serviceManager->get('doctrine.entitymanager.orm_default'));
+            }
+        });
     }
 
     public function getConfig()

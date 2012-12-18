@@ -21,19 +21,4 @@ class Module
     {
         return include __DIR__ . '/config/module.config.php';
     }
-
-    public function onBootstrap(EventInterface $e)
-    {
-        $application = $e->getApplication();
-        $serviceManager = $application->getServiceManager();
-
-        $controllerLoader = $serviceManager->get('ControllerLoader');
-
-        // Add initializer to Controller Service Manager that check if controllers needs entity manager injection
-        $controllerLoader->addInitializer(function ($instance) use ($serviceManager) {
-            if (method_exists($instance, 'setEntityManager')) {
-                $instance->setEntityManager($serviceManager->get('doctrine.entitymanager.orm_default'));
-            }
-        });
-    }
 }

@@ -17,4 +17,42 @@ return array(
             ),
         )
     ),
+
+    'view_manager' => array(
+        'template_path_stack' => array(
+            'zfc-user' => __DIR__ . '/../view',
+        ),
+    ),
+
+    'controllers' => array(
+        'invokables' => array(
+            'user-register' => 'User\Controller\RegisterController',
+            'user-login'    => 'User\Controller\LoginController',
+        ),
+    ),
+
+    'router' => array(
+        'routes' => array(
+            'register' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/register',
+                    'defaults' => array(
+                        'controller' => 'user-register',
+                        'action'     => 'register',
+                    ),
+                ),
+            ),
+            'login' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/login',
+                    'defaults' => array(
+                        'controller' => 'user-login',
+                        'action'     => 'login',
+                    ),
+                ),
+            ),
+        ),
+    ),
 );

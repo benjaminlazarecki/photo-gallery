@@ -4,8 +4,6 @@ namespace User;
 
 use Zend\Mvc\MvcEvent;
 
-use User\Event\ExtendsRegistrationForm;
-
 /**
  * User Module.
  *
