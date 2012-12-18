@@ -1,15 +1,65 @@
-<h2>Register</h2>
-
 <?php
+$this->headTitle("Register");
 $form = $this->form;
 $form->setAttribute('action', $this->url('register'));
+$form->setAttribute('class', 'form-horizontal');
 $form->prepare();
 
 echo $this->form()->openTag($form);
-echo $this->formRow($form->get('email'));
-echo $this->formRow($form->get('username'));
-echo $this->formRow($form->get('age'));
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
 ?>
+
+<legend>Registration</legend>
+<div class="control-group">
+    <label class="control-label" for="email">Email:</label>
+    <div class="controls">
+        <div class="input-prepend">
+            <span class="add-on">@</span>
+            <?= $this->formInput($form->get('email')); ?>
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="username">Username:</label>
+    <div class="controls">
+        <div class="input-prepend">
+            <span class="add-on">abc</span>
+            <?= $this->formInput($form->get('username')); ?>
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="age">Age:</label>
+    <div class="controls">
+        <div class="input-prepend">
+            <span class="add-on">123</span>
+            <?= $this->formInput($form->get('age')); ?>
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="age">Captcha:</label>
+    <div class="controls">
+        <?= $this->formRow($form->get('captcha')); ?>
+    </div>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <?= $this->formInput($form->get('submit')); ?>
+    </div>
+</div>
+<?php
+
+echo $this->formElementErrors($form->get('email'));
+
+echo $this->formElementErrors($form->get('username'));
+
+echo $this->formElementErrors($form->get('age'));
+
+echo $this->form()->closeTag($form);
+
+
 

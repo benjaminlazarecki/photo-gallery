@@ -1,7 +1,21 @@
-<h2>Login</h2>
-<form action="<?= $this->url('login'); ?>" method="POST">
-    <input class="input-small" type="text" name="login" placeholder="Login" />
-    <input class="input-small" type="password" name="password" placeholder="Password" />
-    <input type="submit" />
+<form class="form-horizontal" action="<?= $this->url('login'); ?>" method="POST">
+    <fieldset>
+        <legend>Login</legend>
+        <div class="control-group">
+            <label class="control-label" for="email">Email:</label>
+            <div class="controls">
+                <input id="email" class="input-large" type="text" name="login" placeholder="Login" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">Password:</label>
+            <div class="controls">
+                <input id="password" class="input-large" type="password" name="password" placeholder="Password" />
+            </div>
+        </div>
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Login" />
+        </div>
+    </fieldset>
 </form>
 <p>Not register ? you can register <a href="<?= $this->url('register') ?>">here!</a></p>

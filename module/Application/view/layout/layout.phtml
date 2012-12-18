@@ -20,7 +20,7 @@
 
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -58,11 +58,13 @@
             <?php
             $currentView = $this->viewModel()->getCurrent()->getChildren()[0];
             if (isset($currentView->flashMessages) && count($currentView->flashMessages)) : ?>
-                <ul class="flashMessages">
-                    <?php foreach ($currentView->flashMessages as $fMessage) : ?>
-                    <li><?php echo $fMessage; ?></li>
-                    <?php endforeach; ?>
-                </ul>
+                <div class="row">
+                    <ul class="flashMessages alert <?php if (isset($currentView->flashError)) : ?>alert-error<?php else: ?>alert-success<?php endif; ?>">
+                        <?php foreach ($currentView->flashMessages as $fMessage) : ?>
+                        <li><?php echo $fMessage; ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             <?php endif; ?>
 
             <?php echo $this->content; ?>

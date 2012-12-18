@@ -6,8 +6,7 @@
 <?php foreach($this->allGallery as $gallery) : ?>
     <?php $username = $gallery->getOwner()->getUsername(); ?>
     <li>
-        <a href="<?= $this->url('gallery', array(
-            'action'   => 'show', 
+        <a href="<?= $this->url('gallery-show', array(
             'username' => $username)); ?>"><?= $username; ?></a>
     </li>
 <?php endforeach; ?>
