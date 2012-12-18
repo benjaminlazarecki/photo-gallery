@@ -21,7 +21,7 @@ class Gallery
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -62,20 +62,6 @@ class Gallery
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set the id.
-     *
-     * @param integer $id
-     *
-     * @return Gallery
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**
