@@ -1,5 +1,5 @@
 {
-    "hash": "2beb0d76991e3cb9c47faad47502159b",
+    "hash": "f0397f18771364d0fd52e0d1164ac9dc",
     "packages": [
         {
             "package": "doctrine/common",
@@ -19,7 +19,15 @@
         },
         {
             "package": "doctrine/doctrine-orm-module",
-            "version": "0.5.6"
+            "version": "dev-master",
+            "alias-pretty-version": "0.6.x-dev",
+            "alias-version": "0.6.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/doctrine-orm-module",
+            "version": "dev-master",
+            "source-reference": "b2c9507603d4f4442fa1f3ead87e14abb80b8073",
+            "commit-date": "1355613846"
         },
         {
             "package": "doctrine/migrations",
@@ -34,32 +42,8 @@
             "version": "v2.1.4"
         },
         {
-            "package": "zendframework/zend-developer-tools",
-            "version": "dev-master",
-            "source-reference": "e930bd2feaf13e046e6896d18d4218e31c3ddaf1",
-            "commit-date": "1351428639"
-        },
-        {
             "package": "zendframework/zendframework",
             "version": "2.0.5"
-        },
-        {
-            "package": "zf-commons/zfc-base",
-            "version": "dev-master",
-            "source-reference": "38990ad5f51002dd271ab676b90a3d59728190e2",
-            "commit-date": "1351100548"
-        },
-        {
-            "package": "zf-commons/zfc-user",
-            "version": "dev-master",
-            "source-reference": "18c4fc2e71a53b558e1feec51c9c5fb10a070188",
-            "commit-date": "1355010566"
-        },
-        {
-            "package": "zf-commons/zfc-user-doctrine-orm",
-            "version": "dev-master",
-            "source-reference": "37a96fb0f901240bad94afb18530ecf9427ab0df",
-            "commit-date": "1354267089"
         }
     ],
     "packages-dev": null,
@@ -68,9 +52,6 @@
     ],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "zendframework/zend-developer-tools": 20,
-        "zf-commons/zfc-base": 20,
-        "zf-commons/zfc-user": 20,
-        "zf-commons/zfc-user-doctrine-orm": 20
+        "doctrine/doctrine-orm-module": 20
     }
 }

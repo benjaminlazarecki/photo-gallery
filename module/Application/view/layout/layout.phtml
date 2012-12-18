@@ -28,16 +28,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Skeleton Application') ?></a>
+                    <a class="brand" href="<?php echo $this->url('home') ?>">Home</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
+                            <li><a>@todo</a></li>
                         </ul>
+                        <p class="navbar-text pull-right">
+                            @todo
+                        </p>
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>
         <div class="container">
+
             <?php
             $currentView = $this->viewModel()->getCurrent()->getChildren()[0];
 

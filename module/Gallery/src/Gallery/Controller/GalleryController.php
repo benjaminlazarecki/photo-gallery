@@ -56,12 +56,10 @@ class GalleryController extends AbstractActionController
 
         if ($username !== null) {
             $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
-        } else {
-            $owner = $this->getPluginManager()->get('zfcuserauthentication')->getIdentity();
         }
 
         if ($owner === null) {
-            return $this->redirect()->toRoute('zfcuser', array('action' => 'login'));
+            return $this->redirect()->toRoute('user', array('action' => 'login'));
         }
 
         return array(
@@ -101,7 +99,7 @@ class GalleryController extends AbstractActionController
      */
     public function addAction()
     {
-        $owner = $this->getPluginManager()->get('zfcuserauthentication')->getIdentity();
+        // TODO Get the user
 
         $form = new ImageForm();
         $form->get('submit')->setAttribute('label', 'Add');

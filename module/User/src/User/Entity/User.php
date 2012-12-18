@@ -2,8 +2,7 @@
 
 namespace User\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-    ZfcUser\Entity\User as ZfcUser;
+use Doctrine\ORM\Mapping as ORM;
 
 use Gallery\Entity\Gallery;
 
@@ -13,8 +12,49 @@ use Gallery\Entity\Gallery;
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>
  */
-class User extends ZfcUser
+class User
 {
+    /**
+     * @var integer id.
+     *
+     * @ORM\Id
+     * @ORM\Column(type = "integer")
+     * @ORM\GeneratedValue
+     */
+    protected $id;
+
+    /**
+     * @var string username.
+     *
+     * @ORM\Column(
+     *      type   = "string",
+     *      length = 255
+     * )
+     */
+    protected $username;
+
+    /**
+     * @var string email.
+     *
+     * @ORM\Column(
+     *      type   = "string",
+     *      length = 255
+     * )
+     */
+    protected $email;
+
+    /**
+     * @var string password.
+     *
+     * @ORM\Column(
+     *      type   = "string",
+     *      length = 255
+     * )
+     */
+    protected $password;
+
+    protected $plainPassword;
+
     /**
      * @var integer the age.
      *

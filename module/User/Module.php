@@ -38,20 +38,4 @@ class Module
     {
         return include __DIR__ . '/config/module.config.php';
     }
-
-    /**
-     * Bootstrap.
-     *
-     * @param \Zend\Mvc\MvcEvent $e The mvc event.
-     */
-    public function onBootstrap(MvcEvent $e)
-    {
-        $events = $e->getApplication()->getEventManager()->getSharedManager();
-        // TODO: create a service.
-        $extends = new ExtendsRegistrationForm();
-
-        $events->attach('ZfcUser\Form\Register', 'init', function($e) use ($extends) {
-            $extends->addAgeFields($e->getTarget());
-        });
-    }
 }
