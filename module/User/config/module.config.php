@@ -53,6 +53,16 @@ return array(
                     ),
                 ),
             ),
+            'logout' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/logout',
+                    'defaults' => array(
+                        'controller' => 'user-login',
+                        'action'     => 'logout',
+                    ),
+                ),
+            ),
         ),
     ),
 );

@@ -1,0 +1,7 @@
+<h2>Login</h2>
+<form action="<?= $this->url('login'); ?>" method="POST">
+    <input class="input-small" type="text" name="login" placeholder="Login" />
+    <input class="input-small" type="password" name="password" placeholder="Password" />
+    <input type="submit" />
+</form>
+<p>Not register ? you can register <a href="<?= $this->url('register') ?>">here!</a></p>

@@ -78,6 +78,7 @@ class RegisterController extends AbstractActionController
         return array(
             'form'          => $form,
             'flashMessages' => $this->flashMessenger()->getMessages(),
+            'noDisplayWell' => true,
         );
     }
 }
