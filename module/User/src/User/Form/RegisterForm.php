@@ -22,11 +22,13 @@ class RegisterForm extends Form
 
         $username = new Element\Text('username');
 
-        $age = new Element\Text('age'); // Wait for NumberFormatter
+        $age = new Element\Text('age');
+        $age->setAttribute('type', 'number'); // Wait for NumberFormatter
 
         $captcha = new Element\Captcha('captcha');
         $captcha
-            ->setCaptcha(new Captcha\Figlet());
+            ->setCaptcha(new Captcha\Figlet())
+            ->setAttribute('placeholder', 'Enter the captcha here');
 
         $this->setAttribute('method', 'post');
 

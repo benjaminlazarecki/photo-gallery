@@ -7,11 +7,12 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 ?>
-
 <legend>Registration</legend>
-<div class="control-group">
+<?php $errors = $form->get('email')->getMessages(); ?>
+<div class="control-group <?php if (!empty($errors)) : ?>error text-error<?php endif; ?>">
     <label class="control-label" for="email">Email:</label>
     <div class="controls">
+        <?= $this->formElementErrors($form->get('email')); ?>
         <div class="input-prepend">
             <span class="add-on">@</span>
             <?= $this->formInput($form->get('email')); ?>
@@ -19,9 +20,11 @@ echo $this->form()->openTag($form);
     </div>
 </div>
 
-<div class="control-group">
+<?php $errors = $form->get('username')->getMessages(); ?>
+<div class="control-group <?php if (!empty($errors)) : ?>error text-error<?php endif; ?>">
     <label class="control-label" for="username">Username:</label>
     <div class="controls">
+        <?= $this->formElementErrors($form->get('username')); ?>
         <div class="input-prepend">
             <span class="add-on">abc</span>
             <?= $this->formInput($form->get('username')); ?>
@@ -29,9 +32,11 @@ echo $this->form()->openTag($form);
     </div>
 </div>
 
-<div class="control-group">
+<?php $errors = $form->get('age')->getMessages(); ?>
+<div class="control-group <?php if (!empty($errors)) : ?>error text-error<?php endif; ?>">
     <label class="control-label" for="age">Age:</label>
     <div class="controls">
+        <?= $this->formElementErrors($form->get('age')); ?>
         <div class="input-prepend">
             <span class="add-on">123</span>
             <?= $this->formInput($form->get('age')); ?>
@@ -39,27 +44,22 @@ echo $this->form()->openTag($form);
     </div>
 </div>
 
-<div class="control-group">
+<?php $errors = $form->get('captcha')->getMessages(); ?>
+<div class="control-group <?php if (!empty($errors)) : ?>error text-error<?php endif; ?>">
     <label class="control-label" for="age">Captcha:</label>
     <div class="controls">
-        <?= $this->formRow($form->get('captcha')); ?>
+        <?= $this->formElementErrors($form->get('captcha')); ?>
+        <?= $this->formCaptchaFiglet($form->get('captcha')); ?>
     </div>
 </div>
 
 <div class="control-group">
-    <div class="controls">
+    <div class="form-actions">
         <?= $this->formInput($form->get('submit')); ?>
     </div>
 </div>
-<?php
 
-echo $this->formElementErrors($form->get('email'));
-
-echo $this->formElementErrors($form->get('username'));
-
-echo $this->formElementErrors($form->get('age'));
-
-echo $this->form()->closeTag($form);
+<?= $this->form()->closeTag($form); ?>
 
 
 

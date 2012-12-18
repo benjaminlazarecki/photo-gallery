@@ -36,13 +36,13 @@
                         <?php $userSession = new \Zend\Session\Container('user'); ?>
                         <?php if (!$userSession->offsetExists('user')) : ?>
                         <form class="navbar-form pull-right" action="<?= $this->url('login'); ?>" method="POST">
-                            <input class="input-small" type="text" name="login" placeholder="Login" />
+                            <input class="input-small" type="text" name="login" placeholder="Username" />
                             <input class="input-small" type="password" name="password" placeholder="Password" />
                             <input class="btn  btn-primary" type="submit" />
                         </form>
                         <p class="navbar-text pull-left">
                             <?php if (!isset($this->viewModel()->getCurrent()->getChildren()[0]->noDisplayWell)) : ?>
-                                Not register ? you can register <a href="<?= $this->url('register'); ?>">here!</a>
+                                Not register ? You can register <a href="<?= $this->url('register'); ?>">here!</a>
                             <?php endif; ?>
                         </p>
                         <?php else : ?>
