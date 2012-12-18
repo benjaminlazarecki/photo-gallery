@@ -15,7 +15,7 @@ return array(
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(
-                        'controller' => 'Gallery\Controller\Gallery',
+                        'controller' => 'gallery',
                         'action'     => 'index',
                     ),
                 ),

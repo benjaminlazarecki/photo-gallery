@@ -54,12 +54,14 @@ class GalleryController extends AbstractActionController
     {
         $username = $this->getEvent()->getRouteMatch()->getParam('username');
 
-        if ($username !== null) {
-            $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
+        if ($username === null) {
+            return $this->redirect()->toRoute('gallery');
         }
 
+        $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
+
         if ($owner === null) {
-            return $this->redirect()->toRoute('user', array('action' => 'login'));
+            return $this->redirect()->toRoute('login');
         }
 
         return array(

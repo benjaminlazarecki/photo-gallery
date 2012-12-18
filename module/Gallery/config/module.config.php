@@ -5,22 +5,31 @@ namespace Gallery;
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Gallery\Controller\Gallery' => 'Gallery\Controller\GalleryController',
+            'gallery' => 'Gallery\Controller\GalleryController',
         ),
     ),
 
     'router' => array(
         'routes' => array(
             'gallery' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route'    => '/gallery',
+                    'defaults' => array(
+                        'controller' => 'gallery',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'gallery-show' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/gallery[/:action[/:username]]',
+                    'route'    => '/gallery-show[/:username]',
                     'constraints' => array(
-                        'action'   => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'username' => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Gallery\Controller\Gallery',
+                        'controller' => 'gallery',
                         'action'     => 'show',
                     ),
                 ),
