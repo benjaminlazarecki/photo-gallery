@@ -77,7 +77,10 @@ class LoginController extends AbstractActionController
         if ($user === null) {
             $message = 'Wrong login or password!';
 
-            return array('flashMessages' => array($message));
+            return array(
+                'flashMessages' => array($message),
+                'flashError'    => true,
+            );
         }
 
         $this->getUserSession()->offsetSet('user', $user);
@@ -100,6 +103,9 @@ class LoginController extends AbstractActionController
         if ($userSession !== null) {
             $this->getUserSession()->offsetUnset('user');
         }
+
+        $message = 'Your are logged out!';
+        $this->flashMessenger()->addMessage($message);
 
         return $this->redirect()->toRoute('gallery');
     }

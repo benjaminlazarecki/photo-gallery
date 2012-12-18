@@ -65,7 +65,8 @@ class GalleryController extends AbstractActionController
         }
 
         return array(
-            'owner' => $owner,
+            'owner'         => $owner,
+            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 
@@ -90,7 +91,8 @@ class GalleryController extends AbstractActionController
 
         return array(
             'randomGallery' => $randomGallery,
-            'allGallery'    => $allGallery
+            'allGallery'    => $allGallery,
+            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 
@@ -155,7 +157,10 @@ class GalleryController extends AbstractActionController
             }
         }
 
-        return array('form' => $form);
+        return array(
+            'form'          => $form,
+            'flashMessages' => $this->flashMessenger()->getMessages(),
+        );
     }
 }
 
