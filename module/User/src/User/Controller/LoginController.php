@@ -88,7 +88,7 @@ class LoginController extends AbstractActionController
         $message = 'Your are logged in!';
         $this->flashMessenger()->addMessage($message);
 
-        return $this->redirect()->toRoute('gallery');
+        return $this->redirect()->toRoute('gallery-show', array('username' => $user->getUsername()));
     }
 
     /**
