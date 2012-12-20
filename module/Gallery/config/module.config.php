@@ -34,6 +34,16 @@ return array(
                     ),
                 ),
             ),
+            'image-add' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/image/add',
+                    'defaults' => array(
+                        'controller' => 'gallery',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
         ),
     ),
 

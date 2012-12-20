@@ -3,7 +3,6 @@
 namespace Gallery\Form;
 
 use Zend\InputFilter\InputFilter,
-    Zend\InputFilter\Input,
     Zend\Validator;
 
 class ImageFormValidator extends InputFilter

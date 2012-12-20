@@ -13,10 +13,8 @@ class ImageController extends AbstractActionController
 {
     /**
      * Display an image.
-     *
-     * @param integer $id
      */
-    public function showAction($id)
+    public function showAction()
     {
 
     }
@@ -31,20 +29,16 @@ class ImageController extends AbstractActionController
 
     /**
      * Edit an image.
-     *
-     * @param integer $id
      */
-    public function editAction($id)
+    public function editAction()
     {
 
     }
 
     /**
      * Remove an image.
-     *
-     * @param integer $id
      */
-    public function removeAction($id)
+    public function removeAction()
     {
 
     }

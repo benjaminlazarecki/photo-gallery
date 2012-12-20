@@ -4,12 +4,12 @@ namespace Gallery\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * Represent an image upload by a user.
  *
  * @ORM\Entity
  * @ORM\Table(name = "image")
+ * @ORM\HasLifecycleCallbacks
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>
  */
@@ -62,6 +62,20 @@ class Image
      * )
      */
     private $order;
+
+    /**
+     * @ORM\Column(
+     *     type     = "string",
+     *     length   = 255,
+     *     nullable = true
+     * )
+     */
+    public $path;
+
+    /**
+     * @var mixed the file.
+     */
+    public $file;
 
     /**
      * Constructor.
@@ -202,6 +216,130 @@ class Image
         $this->name    = $data['name'];
         $this->public  = $data['public'];
         $this->order   = $data['order'];
+        $this->file    = $data['file'];
+    }
+
+    /**
+     * Gets the path of the image.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Sets the image path.
+     *
+     * @param string $path
+     *
+     * @return Image
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Gets the file
+     *
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Sets the file.
+     *
+     * @param mixed $file
+     *
+     * @return Image
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Gets the absolute path.
+     *
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    /**
+     * Gets the web path.
+     *
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    /**
+     * Gets the upload root dir
+     *
+     * @return string
+     */
+    public function getUploadRootDir()
+    {
+        return getcwd() .$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return '/web/uploads/images/';
+    }
+
+    /**
+     * On pre upload and pre update rename file.
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->file) {
+            $guessExtension = explode('.', $this->file['name']);
+            $this->path = sha1(uniqid(mt_rand(), true)) . '.' . $guessExtension[count($guessExtension) - 1];
+        }
+    }
+
+    /**
+     * On post persist and post update move the file.
+     *
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+        move_uploaded_file($this->file['tmp_name'], $this->getUploadRootDir() . $this->path);
+        unset($this->file);
+    }
+
+    /**
+     * On post remove unlink the file.
+     *
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
     }
 }
-
