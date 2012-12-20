@@ -88,6 +88,19 @@ return array(
                     ),
                 ),
             ),
+            'unblock-user' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/admin/unblock[/:username]',
+                    'constraints' => array(
+                        'username' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'admin',
+                        'action'     => 'unblock',
+                    ),
+                ),
+            ),
         ),
     ),
 );

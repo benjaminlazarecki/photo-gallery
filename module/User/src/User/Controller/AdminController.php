@@ -72,7 +72,7 @@ class AdminController extends AbstractActionController
             return $this->getResponse()->setStatusCode(403);
         }
 
-        $users = $this->getEntityManager()->getRepository('User\Entity\User')->findAll();
+        $users = $this->getEntityManager()->getRepository('User\Entity\User')->getAllUserForAdmin();
 
         return array(
             'users'         => $users,
@@ -102,6 +102,41 @@ class AdminController extends AbstractActionController
             $this->getEntityManager()->flush();
 
             $message = sprintf('User %s was successfully deleted', $user->getUsername());
+            $this->flashMessenger()->setNamespace('success')->addMessage($message);
+        } else {
+            $message = sprintf('User %s does not exist!', $username);
+            $this->flashMessenger()->setNamespace('error')->addMessage($message);
+        }
+
+        return $this->redirect()->toRoute('admin');
+    }
+
+	/**
+	 * Unblock a user.
+	 *
+	 * @return mixed
+	 */
+    public function unblockAction()
+    {
+        $user = $this->getUserSession()->offsetGet('user');
+
+        if (!$user->isAdmin()) {
+            return $this->getResponse()->setStatusCode(403);
+        }
+
+        $username = $this->params()->fromRoute('username');
+
+        /* @var \User\Entity\User $user */
+        $user = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
+
+        if ($user !== null) {
+			$user
+				->setEnable(true)
+				->resetAttempt();
+
+            $this->getEntityManager()->flush();
+
+            $message = sprintf('User %s was successfully unblock', $user->getUsername());
             $this->flashMessenger()->setNamespace('success')->addMessage($message);
         } else {
             $message = sprintf('User %s does not exist!', $username);

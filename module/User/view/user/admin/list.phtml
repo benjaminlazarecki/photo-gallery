@@ -23,7 +23,14 @@
             <td><?= $user->getAge() ?></td>
             <td><?= $user->getAttempt() ?></td>
             <td><?php if ($user->isEnable()) : ?>Yes<?php else :?>No<?php endif; ?></td>
-            <td><a href="<?= $this->url('remove-user', array('username' => $user->getUsername())) ?>" class="js_remove_user btn btn-small btn-danger">Remove</a></td>
+            <td>
+                <a href="<?= $this->url('remove-user', array('username' => $user->getUsername())) ?>"
+                    class="js_remove_user btn btn-small btn-danger">Remove</a>
+				<?php if (!$user->isEnable()) : ?>
+                <a href="<?= $this->url('unblock-user', array('username' => $user->getUsername())) ?>"
+                   class="js_unblock_user btn btn-small btn-warning">Unlock</a>
+				<?php endif; ?>
+            </td>
         </tr>
     <?php $i++; ?>
     <?php endforeach; ?>

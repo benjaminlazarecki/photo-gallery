@@ -9,7 +9,7 @@ use Gallery\Entity\Gallery;
 /**
  * Represent the user class.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass = "User\Repository\UserRepository")
  * @ORM\Table(name = "users")
  *
  * @ORM\HasLifecycleCallbacks
