@@ -6,7 +6,6 @@ return array(
 
         'Application',
         'User',
-        'Album',
         'Gallery'
     ),
     'module_listener_options' => array(
