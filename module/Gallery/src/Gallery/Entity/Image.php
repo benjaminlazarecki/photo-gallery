@@ -327,6 +327,7 @@ class Image
         if (null === $this->file) {
             return;
         }
+
         move_uploaded_file($this->file['tmp_name'], $this->getUploadRootDir() . $this->path);
         unset($this->file);
     }

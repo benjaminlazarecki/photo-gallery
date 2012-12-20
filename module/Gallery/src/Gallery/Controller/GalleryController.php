@@ -5,7 +5,7 @@ namespace Gallery\Controller;
 use Doctrine\ORM\EntityManager,
     Zend\Mvc\Controller\AbstractActionController,
     Zend\View\Model\ViewModel,
-    Zend\Validator\File\Size;
+    Zend\Session\Container;
 
 use Gallery\Entity\Image,
     Gallery\Form\ImageForm,
@@ -18,6 +18,11 @@ use Gallery\Entity\Image,
  */
 class GalleryController extends AbstractActionController
 {
+    /**
+     * @var Zend\Session\Container
+     */
+    protected $userSession;
+
     /**
      * @var Doctrine\ORM\EntityManager
      */
@@ -46,6 +51,20 @@ class GalleryController extends AbstractActionController
     }
 
     /**
+     * Return the user session container.
+     *
+     * @return Zend\Session\Container
+     */
+    public function getUserSession()
+    {
+        if ($this->userSession === null) {
+            $this->userSession = new Container('user');
+        }
+
+        return $this->userSession;
+    }
+
+    /**
      * Display a gallery
      *
      * @return array
@@ -67,6 +86,7 @@ class GalleryController extends AbstractActionController
         return array(
             'owner'         => $owner,
         );
+
     }
 
     /**
@@ -101,7 +121,8 @@ class GalleryController extends AbstractActionController
      */
     public function addAction()
     {
-        // TODO Get the user
+        $user = $this->getUserSession()->offsetGet('user');
+        $owner = $this->getEntityManager()->getRepository('User\Entity\User')->find($user->getId());
 
         $form = new ImageForm();
         $form->get('submit')->setAttribute('label', 'Add');
@@ -109,52 +130,33 @@ class GalleryController extends AbstractActionController
         $request = $this->getRequest();
         if ($request->isPost()) {
             $image = new Image();
-            $form->setInputFilter(new ImageFormValidator());
 
-            $nonFile = $request->getPost()->toArray();
-            $File    = $this->params()->fromFiles('fileupload');
-            $data = array_merge(
-                 $nonFile,
-                 array('fileupload'=> $File['name'])
-             );
+            $form->setInputFilter(new ImageFormValidator($this->getEntityManager()));
+
+            $data = $request->getPost()->toArray();
+
+            $filePost = $this->params()->fromFiles('file');
+            $file = array('file'=> $filePost['name']);
+
+            $data = array_merge($data, $file);
 
             $form->setData($data);
+
             if ($form->isValid()) {
 
-                $size = new Size(array('max'=>2000000));
-                $adapter = new \Zend\File\Transfer\Adapter\Http();
-                $adapter->setValidators(array($size), $File['name']);
-
-                if (!$adapter->isValid()) {
-
-                    $dataError = $adapter->getMessages();
-                    $error = array();
-                    foreach($dataError as $key=>$row)
-                    {
-                        $error[] = $row;
-                    }
-                    $form->setMessages(array('file'=> $error));
-                } else {
-                    $config = $this->getServiceLocator()->get('Config');
-                    $uploadPath = $config['photo-gallery']['upload_path'];
-                    $adapter->setDestination(getcwd() . $uploadPath);
-                    if ($adapter->receive($File['name'])) {
-                        echo 'ok';
-                    }
-                }
-
                 $image->populate($form->getData());
+                $image->setFile($this->params()->fromFiles('file'));
                 $image->setGallery($owner->getGallery());
                 $owner->getGallery()->addImage($image);
 
                 $this->getEntityManager()->flush();
 
-                // TODO Add redirct to owner gallery
+                $this->redirect()->toRoute('gallery');
             }
         }
 
         return array(
-            'form'          => $form,
+            'form' => $form,
         );
     }
 }

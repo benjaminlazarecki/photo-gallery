@@ -25,6 +25,11 @@ class UniqueField extends AbstractValidator
     protected $field;
 
     /**
+     * @var string the repository
+     */
+    protected $repository;
+
+    /**
      * @var array message template.
      */
     protected $messageTemplates = array();
@@ -35,8 +40,10 @@ class UniqueField extends AbstractValidator
     public function __construct(array $options = null)
     {
         if (null !== $options) {
-            $this->setEntityManager($options['entityManager']);
-            $this->setField($options['field']);
+            $this
+                ->setEntityManager($options['entityManager'])
+                ->setRepository($options['repository'])
+                ->setField($options['field']);
         }
 
         // Init messages
@@ -60,10 +67,14 @@ class UniqueField extends AbstractValidator
      * Sets the entity manager
      *
      * @param EntityManager $entityManager
+     *
+     * @return UniqueField
      */
     public function setEntityManager(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+
+        return $this;
     }
 
     /**
@@ -80,10 +91,36 @@ class UniqueField extends AbstractValidator
      * Sets the field.
      *
      * @param string $field
+     *
+     * @return UniqueField
      */
     public function setField($field)
     {
         $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * @return string The repository.
+     */
+    public function getRepository()
+    {
+        return $this->repository;
+    }
+
+    /**
+     * Sets the repository.
+     *
+     * @param string $repository
+     *
+     * @return UniqueField
+     */
+    public function setRepository($repository)
+    {
+        $this->repository = $repository;
+
+        return $this;
     }
 
     /**
@@ -93,8 +130,9 @@ class UniqueField extends AbstractValidator
     {
         $em = $this->getEntityManager();
         $field = $this->getField();
+        $repository = $this->getRepository();
 
-        $entity = $em->getRepository('User\Entity\User')->findOneBy(array($field => $value));
+        $entity = $em->getRepository($repository)->findOneBy(array($field => $value));
         $entityExist = $entity !== null;
 
         if ($entityExist) {

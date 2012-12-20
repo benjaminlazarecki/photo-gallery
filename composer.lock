@@ -1,5 +1,5 @@
 {
-    "hash": "cc29bd02a98f978ef7c8da043fd4bd52",
+    "hash": "f0397f18771364d0fd52e0d1164ac9dc",
     "packages": [
         {
             "package": "doctrine/common",
@@ -38,18 +38,12 @@
             "version": "2.3.1"
         },
         {
-            "package": "hounddog/doctrine-data-fixture-module",
-            "version": "dev-master",
-            "source-reference": "df09e679f93cb5b625e47ebb1a6976ca17d1dc0b",
-            "commit-date": "1349948281"
-        },
-        {
             "package": "symfony/console",
-            "version": "v2.1.4"
+            "version": "v2.1.5"
         },
         {
             "package": "zendframework/zendframework",
-            "version": "2.0.5"
+            "version": "2.0.6"
         }
     ],
     "packages-dev": null,
@@ -58,7 +52,6 @@
     ],
     "minimum-stability": "alpha",
     "stability-flags": {
-        "doctrine/doctrine-orm-module": 20,
-        "hounddog/doctrine-data-fixture-module": 20
+        "doctrine/doctrine-orm-module": 20
     }
 }

@@ -5,8 +5,7 @@ namespace User\Filter;
 use Doctrine\ORM\EntityManager;
 
 use Zend\InputFilter\InputFilter,
-    Zend\Validator,
-    DoctrineModule\Validator\NoObjectExists;
+    Zend\Validator;
 
 class RegisterFilter extends InputFilter
 {
@@ -25,6 +24,7 @@ class RegisterFilter extends InputFilter
                     'name' => 'User\Validator\UniqueField',
                     'options' => array(
                         'entityManager' => $em,
+                        'repository'    => 'User\Entity\User',
                         'field'         => 'username',
                     )
                 )
@@ -39,6 +39,7 @@ class RegisterFilter extends InputFilter
 					'name' => 'User\Validator\UniqueField',
                     'options' => array(
                         'entityManager' => $em,
+                        'repository'    => 'User\Entity\User',
                         'field'         => 'email',
                     )
                 )
