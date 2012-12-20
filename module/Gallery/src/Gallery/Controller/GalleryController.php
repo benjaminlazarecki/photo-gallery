@@ -66,7 +66,6 @@ class GalleryController extends AbstractActionController
 
         return array(
             'owner'         => $owner,
-            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 
@@ -92,7 +91,6 @@ class GalleryController extends AbstractActionController
         return array(
             'randomGallery' => $randomGallery,
             'allGallery'    => $allGallery,
-            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 
@@ -143,13 +141,11 @@ class GalleryController extends AbstractActionController
                     if ($adapter->receive($File['name'])) {
                         echo 'ok';
                     }
-                }  
+                }
 
                 $image->populate($form->getData());
                 $image->setGallery($owner->getGallery());
                 $owner->getGallery()->addImage($image);
-
-                var_dump($image); die();
 
                 $this->getEntityManager()->flush();
 
@@ -159,7 +155,6 @@ class GalleryController extends AbstractActionController
 
         return array(
             'form'          => $form,
-            'flashMessages' => $this->flashMessenger()->getMessages(),
         );
     }
 }

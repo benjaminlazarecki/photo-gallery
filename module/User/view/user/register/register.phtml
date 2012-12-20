@@ -7,14 +7,13 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 ?>
-<legend>Registration</legend>
 <?php $errors = $form->get('email')->getMessages(); ?>
 <div class="control-group <?php if (!empty($errors)) : ?>error text-error<?php endif; ?>">
     <label class="control-label" for="email">Email:</label>
     <div class="controls">
         <?= $this->formElementErrors($form->get('email')); ?>
         <div class="input-prepend">
-            <span class="add-on">@</span>
+            <span class="add-on"><i class="icon-envelope"></i></span>
             <?= $this->formInput($form->get('email')); ?>
         </div>
     </div>
@@ -26,7 +25,7 @@ echo $this->form()->openTag($form);
     <div class="controls">
         <?= $this->formElementErrors($form->get('username')); ?>
         <div class="input-prepend">
-            <span class="add-on">abc</span>
+            <span class="add-on"><i class="icon-user"></i></span>
             <?= $this->formInput($form->get('username')); ?>
         </div>
     </div>
@@ -53,13 +52,5 @@ echo $this->form()->openTag($form);
     </div>
 </div>
 
-<div class="control-group">
-    <div class="form-actions">
-        <?= $this->formInput($form->get('submit')); ?>
-    </div>
-</div>
-
 <?= $this->form()->closeTag($form); ?>
-
-
 

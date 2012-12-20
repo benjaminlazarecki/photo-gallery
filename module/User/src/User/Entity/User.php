@@ -84,11 +84,35 @@ class User
     protected $gallery;
 
     /**
+     * @var boolean TRUE if account is enable, else FALSE.
+     *
+     * @ORM\Column(type = "boolean")
+     */
+    protected $enable;
+
+    /**
+     * @var integer attempt login count.
+     *
+     * @ORM\Column(type = "integer")
+     */
+    protected $attempt;
+
+    /**
+     * @var boolean TRUE if user is admin, else FALSE
+     *
+     * @ORM\Column(type = "boolean")
+     */
+    protected $admin;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->setGallery(new Gallery());
+        $this->attempt = 0;
+        $this->enable = true;
+        $this->admin = false;
     }
 
     /**
@@ -128,7 +152,7 @@ class User
     /**
      * Set the user gallery
      *
-     * @param \Gallery\Entity\Gallery $gallery
+     * @param Gallery $gallery
      */
     public function setGallery(Gallery $gallery)
     {
@@ -137,9 +161,9 @@ class User
     }
 
     /**
-     * Gets the id.
+     * Return the id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -240,6 +264,70 @@ class User
         $this->plainPassword = $password;
 
         return $this;
+    }
+
+    /**
+     * Gets the count login attempt.
+     *
+     * @return integer
+     */
+    public function getAttempt()
+    {
+        return $this->attempt;
+    }
+
+    /**
+     * Add a attempts for login.
+     *
+     * @return User
+     */
+    public function addAttempt()
+    {
+        $this->attempt++;
+
+        return $this;
+    }
+
+    /**
+     * Reset the attempt login count.
+     */
+    public function resetAttempt()
+    {
+        $this->attempt = 0;
+    }
+
+    /**
+     * Return TRUE if account is enable, else FALSE.
+     *
+     * @return boolean
+     */
+    public function isEnable()
+    {
+        return $this->enable;
+    }
+
+    /**
+     * Sets TRUE if account is enable, else FALSE.
+     *
+     * @param boolean $enable
+     *
+     * @return User
+     */
+    public function setEnable($enable)
+    {
+        $this->enable = $enable;
+
+        return $this;
+    }
+
+    /**
+     * Return TRUE if user is admin, else FALSE.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->admin;
     }
 
     /**

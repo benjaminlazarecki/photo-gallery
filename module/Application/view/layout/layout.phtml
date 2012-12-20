@@ -35,19 +35,21 @@
                         </ul>
                         <?php $userSession = new \Zend\Session\Container('user'); ?>
                         <?php if (!$userSession->offsetExists('user')) : ?>
-                        <form class="navbar-form pull-right" action="<?= $this->url('login'); ?>" method="POST">
-                            <input class="input-small" type="text" name="login" placeholder="Username" />
-                            <input class="input-small" type="password" name="password" placeholder="Password" />
-                            <input class="btn  btn-primary" type="submit" />
-                        </form>
+                        <div class="js_login pull-right">
+                            <form method="POST" action="<?= $this->url('login') ?>" class="navbar-form pull-right">
+                                <input class="input-small js_login_username" type="text" name="login" placeholder="Username" />
+                                <input class="input-small js_login_password" type="password" name="password" placeholder="Password" />
+                                <input type="submit" class="btn btn-primary js_login_submit" />
+                            </form>
+                        </div>
                         <p class="navbar-text pull-left">
                             <?php if (!isset($this->viewModel()->getCurrent()->getChildren()[0]->noDisplayWell)) : ?>
-                                Not register ? You can register <a href="<?= $this->url('register'); ?>">here!</a>
+                                not register ? you can register <a class="js_register_link">here!</a>
                             <?php endif; ?>
                         </p>
                         <?php else : ?>
-                            <a class="btn btn-primary pull-right" href="<?= $this->url('logout'); ?>">logout</a>
-
+                        <a class="btn btn-primary pull-right" href="<?= $this->url('logout'); ?>">logout</a>
+                        <p class="navbar-text pull-right logged_in">Logged in as </p>
                         <?php endif; ?>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -55,17 +57,7 @@
         </div>
         <div class="container">
 
-            <?php
-            $currentView = $this->viewModel()->getCurrent()->getChildren()[0];
-            if (isset($currentView->flashMessages) && count($currentView->flashMessages)) : ?>
-                <div class="row">
-                    <ul class="flashMessages alert <?php if (isset($currentView->flashError)) : ?>alert-error<?php else: ?>alert-success<?php endif; ?>">
-                        <?php foreach ($currentView->flashMessages as $fMessage) : ?>
-                        <li><?php echo $fMessage; ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            <?php endif; ?>
+            <?= $this->flashMessage(); ?>
 
             <?php echo $this->content; ?>
             <hr>
@@ -73,6 +65,95 @@
                 <p>Lazarecki Benjamin - INSSET</p>
             </footer>
         </div> <!-- /container -->
+
+		<div class="modal modal-big hide fade js_register_modal" role="dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Register</h3>
+			</div>
+			<div class="modal-body">
+				<p>Loading…</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button class="btn btn-primary js_register_submit">Register</button>
+			</div>
+		</div>
         <?php echo $this->inlineScript() ?>
     </body>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js_login').on('click', '.js_login_submit', function(event) {
+                event.preventDefault();
+                login = $('.js_login_username').val();
+                password = $('.js_login_password').val();
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '<?= $this->url('login'); ?>',
+                    data: {
+                        login    : login,
+                        password : password
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        if ('undefined' == typeof(data.redirect)) {
+                            $('.js_login').html(data);
+                        } else {
+                            window.location.href = data.redirect;
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.js_register_link', function() {
+                $('.js_register_modal').modal('show');
+                jQuery.ajax({
+                    type: 'GET',
+                    url: '<?= $this->url('register'); ?>',
+                    success: function(data, textStatus, jqXHR) {
+                        if ('undefined' == typeof(data.finish)) {
+                            $('.modal-body').html(data);
+                        } else {
+                            window.location.href = data.finish;
+                        }
+                    }
+                })
+            });
+
+            $('.js_register_modal').on('click', '.js_register_submit', function() {
+                email         = $('.js_register_modal input[name = "email"]').val();
+                username      = $('.js_register_modal input[name = "username"]').val();
+                age           = $('.js_register_modal input[name = "age"]').val();
+                captcha_id    = $('.js_register_modal input[name = "captcha[id]"]').val();
+                captcha_input = $('.js_register_modal input[name = "captcha[input]"]').val();
+
+                jQuery.ajax({
+                    type: 'POST',
+					url: '<?= $this->url('register'); ?>',
+					data: {
+						email    : email,
+						username : username,
+						age      : age,
+						captcha: {
+							id    : captcha_id,
+							input : captcha_input
+						}
+					},
+                    success: function(data, textStatus, jqXHR) {
+                        if ('undefined' == typeof(data.finish)) {
+                            $('.modal-body').html(data);
+                        } else {
+                            location.reload();
+                        }
+                    }
+                })
+            });
+
+            $(document).on('click', '.js_remove_user', function(event) {
+				if (!confirm("Are you sure you want to delete this user ?")) {
+					event.preventDefault();
+				}
+            });
+        });
+    </script>
 </html>

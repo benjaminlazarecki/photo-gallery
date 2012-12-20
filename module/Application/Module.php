@@ -12,11 +12,16 @@ namespace Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
+use Application\Helper\FlashMessagesHelper;
+
 /**
  * Application module
  */
 class Module
 {
+    /**
+     * {@inheritdoc}
+     */
     public function onBootstrap(MvcEvent $e)
     {
         $e->getApplication()->getServiceManager()->get('translator');
@@ -37,11 +42,17 @@ class Module
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAutoloaderConfig()
     {
         return array(
@@ -52,4 +63,25 @@ class Module
             ),
         );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'flashMessage' => function($sm) {
+
+                    $flashmessenger = $sm->getServiceLocator()->get('ControllerPluginManager')->get('flashmessenger');
+
+                    $message = new FlashMessagesHelper();
+                    $message->setFlashMessenger($flashmessenger);
+
+                    return $message ;
+                }
+            ),
+        );
+    }
 }
+

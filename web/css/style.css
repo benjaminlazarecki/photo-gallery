@@ -39,3 +39,12 @@ div.container a.brand {
 .flashMessages {
     list-style-type: none;
 }
+
+.login_error, .logged_in {
+    margin-right: 15px;
+}
+
+.modal-big {
+    width: 960px;
+    margin-left: -480px;
+}

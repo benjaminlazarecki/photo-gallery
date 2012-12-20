@@ -28,6 +28,7 @@ return array(
         'invokables' => array(
             'user-register' => 'User\Controller\RegisterController',
             'user-login'    => 'User\Controller\LoginController',
+            'admin'         => 'User\Controller\AdminController',
         ),
     ),
 
@@ -44,6 +45,7 @@ return array(
                 ),
             ),
             'login' => array(
+                //'type' => 'User\Router\Segment',
                 'type' => 'literal',
                 'options' => array(
                     'route' => '/login',
@@ -60,6 +62,29 @@ return array(
                     'defaults' => array(
                         'controller' => 'user-login',
                         'action'     => 'logout',
+                    ),
+                ),
+            ),
+            'admin' => array(
+                'type' => 'literal',
+                'options' => array(
+                    'route' => '/admin',
+                    'defaults' => array(
+                        'controller' => 'admin',
+                        'action'     => 'list',
+                    ),
+                ),
+            ),
+            'remove-user' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/admin/remove[/:username]',
+                    'constraints' => array(
+                        'username' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'admin',
+                        'action'     => 'remove',
                     ),
                 ),
             ),

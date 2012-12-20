@@ -25,9 +25,11 @@ class RegisterForm extends Form
         $age = new Element\Text('age');
         $age->setAttribute('type', 'number'); // Wait for NumberFormatter
 
+        $figlet = new Captcha\Figlet();
+        $figlet->setWordLen(5);
         $captcha = new Element\Captcha('captcha');
         $captcha
-            ->setCaptcha(new Captcha\Figlet())
+            ->setCaptcha($figlet)
             ->setAttribute('placeholder', 'Enter the captcha here');
 
         $this->setAttribute('method', 'post');
@@ -36,14 +38,5 @@ class RegisterForm extends Form
         $this->add($username);
         $this->add($age);
         $this->add($captcha);
-
-        $this->add(array(
-            'name' => 'submit',
-            'attributes' => array(
-                'type'  => 'submit',
-                'value' => 'Add',
-                'class' => 'btn btn-primary',
-            ),
-        ));
     }
 }

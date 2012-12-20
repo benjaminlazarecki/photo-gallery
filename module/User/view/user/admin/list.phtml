@@ -1,0 +1,31 @@
+<h2>User list</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Attempts</th>
+            <th>Enable</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php $i = 1; ?>
+    <?php foreach ($this->users as $user): ?>
+        <tr>
+            <td><?= $i ?></td>
+            <td><a href="<?= $this->url('gallery-show', array('username' => $user->getUserName())); ?>">
+                <?= $user->getUsername(); ?></a></td>
+            <td><?= $user->getEmail(); ?></td>
+            <td><?= $user->getAge() ?></td>
+            <td><?= $user->getAttempt() ?></td>
+            <td><?php if ($user->isEnable()) : ?>Yes<?php else :?>No<?php endif; ?></td>
+            <td><a href="<?= $this->url('remove-user', array('username' => $user->getUsername())) ?>" class="js_remove_user btn btn-small btn-danger">Remove</a></td>
+        </tr>
+    <?php $i++; ?>
+    <?php endforeach; ?>
+    </tbody>
+</table>

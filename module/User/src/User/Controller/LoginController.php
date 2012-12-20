@@ -4,7 +4,9 @@ namespace User\Controller;
 
 use Zend\Session\Container,
     Doctrine\ORM\EntityManager,
-    Zend\Mvc\Controller\AbstractActionController;
+    Zend\Mvc\Controller\AbstractActionController,
+    Zend\View\Model\ViewModel,
+    Zend\View\Model\JsonModel;
 
 /**
  * Login controller.
@@ -66,29 +68,123 @@ class LoginController extends AbstractActionController
      */
     public function loginAction()
     {
-        $login = $this->params()->fromPost('login');
+        $isXmlHttpRequest = $this->request->isXmlHttpRequest();
+
+        $username = $this->params()->fromPost('login');
         $password = $this->params()->fromPost('password');
 
+        $viewmodel = new ViewModel();
+        $viewmodel->setTerminal($isXmlHttpRequest);
+
+        /* @var \User\Entity\User $user */
         $user = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array(
-            'username' => $login,
+            'username' => $username,
             'password' => sha1($password),
         ));
 
+        $isDisable = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array(
+            'username' => $username,
+            'enable' => false,
+        ));
+
+        if ($isDisable) {
+            return $this->handleDisableAccount($viewmodel);
+        }
+
         if ($user === null) {
+            $attempts = $this->addAttempt($username);
+
+            if ($attempts === 'disable') {
+                return $this->handleDisableAccount($viewmodel);
+            }
+
             $message = 'Wrong login or password!';
 
-            return array(
-                'flashMessages' => array($message),
-                'flashError'    => true,
-            );
+            $viewmodel->setVariables(array(
+                'errors'   => $message,
+                'attempts' => $attempts,
+            ));
+
+            return $viewmodel;
         }
+
+        $user->resetAttempt();
+        $this->getEntityManager()->flush();
 
         $this->getUserSession()->offsetSet('user', $user);
 
-        $message = 'Your are logged in!';
-        $this->flashMessenger()->addMessage($message);
+        $jsonModel = new JsonModel();
 
-        return $this->redirect()->toRoute('gallery-show', array('username' => $user->getUsername()));
+        $message = 'Your are logged in!';
+        $this->flashMessenger()->setNamespace('success')->addMessage($message);
+
+        $router = $this->getEvent()->getRouter();
+        if ($user->isAdmin()) {
+            $jsonModel->setVariable('redirect', $router->assemble(array(), array('name' => 'admin')));
+
+            error_reporting(0);
+            // That kill kitty but i have an strange error :
+            //Unknown: &quot;id&quot; returned as member variable from __sleep() but does not exist in Unknown on line 0
+
+            return $jsonModel;
+        }
+
+        $jsonModel->setVariable('redirect', $router->assemble(
+            array('username' => $user->getUsername()),
+            array('name' => 'gallery-show')
+        ));
+
+        error_reporting(0);
+
+        return $jsonModel;
+    }
+
+    /**
+     * Add an attempt.
+     *
+     * @param string $username
+     *
+     * @return int|null
+     */
+    protected function addAttempt($username)
+    {
+        /* @var \User\Entity\User $user */
+        $user = $this->getEntityManager()->getRepository('User\Entity\User')->findOneBy(array(
+            'username' => $username,
+        ));
+
+        if ($user !== null && !$user->isAdmin()) {
+            if ($user->getAttempt() < 3) {
+                $user->addAttempt();
+                $this->getEntityManager()->flush();
+            }
+
+            if ($user->getAttempt() === 3) {
+                $user->setEnable(false);
+                $this->getEntityManager()->flush();
+                return 'disable';
+            }
+
+            return $user->getAttempt();
+        }
+
+        return null;
+    }
+
+    /**
+     * Factorize some code for disable account.
+     *
+     * @param ViewModel $viewmodel
+     *
+     * @return array
+     */
+    protected function handleDisableAccount(ViewModel $viewmodel)
+    {
+        $message = 'Sorry but your account is disable! Please contact the administrator.';
+
+        $viewmodel->setVariables(array('errors' => $message));
+
+        return $viewmodel;
     }
 
     /**
@@ -105,7 +201,7 @@ class LoginController extends AbstractActionController
         }
 
         $message = 'Your are logged out!';
-        $this->flashMessenger()->addMessage($message);
+        $this->flashMessenger()->setNamespace('success')->addMessage($message);
 
         return $this->redirect()->toRoute('gallery');
     }
