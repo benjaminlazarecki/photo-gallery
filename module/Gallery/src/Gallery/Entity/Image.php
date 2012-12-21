@@ -213,9 +213,6 @@ class Image
      */
     public function populate($data)
     {
-        $this->name    = $data['name'];
-        $this->public  = $data['public'];
-        $this->order   = $data['order'];
         $this->file    = $data['file'];
     }
 

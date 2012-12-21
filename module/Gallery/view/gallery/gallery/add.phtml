@@ -10,12 +10,7 @@ $form->setAttribute('action', $this->url('image-add'));
 $form->prepare();
 
 echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-echo $this->formRow($form->get('name'));
-echo "<label>Public:</label>";
-echo $this->formRadio($form->get('public'), 'prepend');
-echo $this->formRow($form->get('order'));
 echo $this->formRow($form->get('file'));
-echo $this->formSubmit($form->get('submit'));
+echo '<input type="submit" value="Add"/>';
 echo $this->form()->closeTag();
 

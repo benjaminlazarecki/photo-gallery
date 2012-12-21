@@ -125,7 +125,6 @@ class GalleryController extends AbstractActionController
         $owner = $this->getEntityManager()->getRepository('User\Entity\User')->find($user->getId());
 
         $form = new ImageForm();
-        $form->get('submit')->setAttribute('label', 'Add');
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -136,7 +135,7 @@ class GalleryController extends AbstractActionController
             $data = $request->getPost()->toArray();
 
             $filePost = $this->params()->fromFiles('file');
-            $file = array('file'=> $filePost['name']);
+            $file = array('file' => $filePost['name']);
 
             $data = array_merge($data, $file);
 
