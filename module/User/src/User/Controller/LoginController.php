@@ -120,7 +120,6 @@ class LoginController extends AbstractActionController
 
         $router = $this->getEvent()->getRouter();
         if ($user->isAdmin()) {
-            //$jsonModel->setVariable('redirect', $router->assemble(array(), array('name' => 'admin')));
 
             error_reporting(0);
             // That kill kitty but i have an strange error :
@@ -180,7 +179,7 @@ class LoginController extends AbstractActionController
      */
     protected function handleDisableAccount(ViewModel $viewmodel)
     {
-        $message = 'Sorry but your account is disable! Please contact the administrator.';
+        $message = 'Sorry but your account is disable!';
 
         $viewmodel->setVariables(array('errors' => $message));
 

@@ -1,8 +1,9 @@
-<h2><?php echo $this->randomGallery->getOwner()->getUsername(); ?>'s gallery</h2>
+<h2 class="span12"><?php echo $this->randomGallery->getOwner()->getUsername(); ?>'s gallery</h2>
 
-<p>Other</p>
-
-<ol>
+<div class="span3">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <li class="nav-header">Others</li>
 <?php foreach($this->allGallery as $gallery) : ?>
     <?php $username = $gallery->getOwner()->getUsername(); ?>
     <li>
@@ -10,13 +11,27 @@
             'username' => $username)); ?>"><?= $username; ?></a>
     </li>
 <?php endforeach; ?>
-</ol>
+    </ul>
+  </div><!--/.well -->
+</div>
 
-<table class="table">
-    <tbody>
-        <?php foreach($this->randomGallery->getImages() as $image) : ?>
-            <?php /* display image */ ?>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+<?php $userSession = new \Zend\Session\Container('user'); ?>
 
+<div class="span9">
+<?php $i = 0; ?>
+<?php foreach($this->randomGallery->getImages() as $image) : ?>
+    <?php if ($i % 3 == 0): ?>
+        <div class="row">
+    <?php endif; ?>
+        <div class="box span3">
+            <img style="width:  200px;" src="../uploads/images/<?= $image->getPath(); ?>" alt="image"/><br />
+            <span><b>Create :</b> <?= $image->getCreateAt()->format('Y-m-d H:i:s'); ?></span><br />
+            <span><b>Size :</b> <?= $image->getWidth() ?>px / <?= $image->getHeight() ?>px</span>
+        </div>
+    <?php if ($i !== 0 && $i % 3 === 0): ?>
+        </div>
+    <?php endif; ?>
+
+    <?php $i++; ?>
+<?php endforeach; ?>
+</div>

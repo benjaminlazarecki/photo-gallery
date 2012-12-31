@@ -19,12 +19,12 @@ use Gallery\Entity\Image,
 class GalleryController extends AbstractActionController
 {
     /**
-     * @var Zend\Session\Container
+     * @var \Zend\Session\Container
      */
     protected $userSession;
 
     /**
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
 
@@ -43,7 +43,7 @@ class GalleryController extends AbstractActionController
     /**
      * Get the entity manager
      *
-     * @return Doctrine\ORM\EntityManager
+     * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()
     {
@@ -53,7 +53,7 @@ class GalleryController extends AbstractActionController
     /**
      * Return the user session container.
      *
-     * @return Zend\Session\Container
+     * @return \Zend\Session\Container
      */
     public function getUserSession()
     {
@@ -83,10 +83,15 @@ class GalleryController extends AbstractActionController
             return $this->redirect()->toRoute('login');
         }
 
-        return array(
-            'owner'         => $owner,
-        );
+        $allGallery = $this->getEntityManager()->getRepository('Gallery\Entity\Gallery')->getAllPublicGallery();
 
+        $view = new ViewModel();
+        $view
+            ->setTemplate('gallery/gallery/index')
+            ->setVariable('randomGallery', $owner->getGallery())
+            ->setVariable('allGallery', $allGallery);
+
+        return $view;
     }
 
     /**
@@ -121,6 +126,11 @@ class GalleryController extends AbstractActionController
      */
     public function addAction()
     {
+        $isXmlHttpRequest = $this->request->isXmlHttpRequest();
+
+        $viewmodel = new ViewModel();
+        $viewmodel->setTerminal($isXmlHttpRequest);
+
         $user = $this->getUserSession()->offsetGet('user');
         $owner = $this->getEntityManager()->getRepository('User\Entity\User')->find($user->getId());
 
@@ -142,21 +152,27 @@ class GalleryController extends AbstractActionController
             $form->setData($data);
 
             if ($form->isValid()) {
+                list($width, $height, $type, $attr) = getimagesize($this->params()->fromFiles('file')['tmp_name']);
 
                 $image->populate($form->getData());
-                $image->setFile($this->params()->fromFiles('file'));
-                $image->setGallery($owner->getGallery());
+                $image
+                    ->setFile($this->params()->fromFiles('file'))
+                    ->setWidth($width)
+                    ->setHeight($height)
+                    ->setGallery($owner->getGallery());
+
                 $owner->getGallery()->addImage($image);
 
                 $this->getEntityManager()->flush();
 
+                $message = sprintf('@trans');
+                $this->flashMessenger()->setNamespace('success')->addMessage($message);
                 $this->redirect()->toRoute('gallery');
             }
         }
 
-        return array(
-            'form' => $form,
-        );
+        $viewmodel->setVariable('form', $form);
+
+        return $viewmodel;
     }
 }
-

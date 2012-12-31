@@ -31,9 +31,11 @@
                     <a class="brand" href="<?php echo $this->url('home') ?>">Home</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li><a></a></li>
+                            <?php $userSession = new \Zend\Session\Container('user'); ?>
+                            <?php if ($userSession->offsetExists('user')) : ?>
+                                <li><a class="js_image_add" href="#">Add image</a></li>
+                            <?php endif; ?>
                         </ul>
-                        <?php $userSession = new \Zend\Session\Container('user'); ?>
                         <?php if (!$userSession->offsetExists('user')) : ?>
                         <div class="js_login pull-right">
                             <form method="POST" action="<?= $this->url('login') ?>" class="navbar-form pull-right">
@@ -61,15 +63,10 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
 
             <?= $this->flashMessage(); ?>
-
             <?php echo $this->content; ?>
-            <hr>
-            <footer>
-                <p>Lazarecki Benjamin - INSSET</p>
-            </footer>
         </div> <!-- /container -->
 
 		<div class="modal modal-big hide fade js_register_modal" role="dialog">
@@ -165,6 +162,28 @@
 				if (!confirm("Are you sure you want to unblock this user ?")) {
 					event.preventDefault();
 				}
+            });
+
+            $(document).on('click', '.js_image_add', function() {
+                $('.js_register_modal').modal('show');
+                jQuery.ajax({
+                    type: 'GET',
+                    url: '<?= $this->url('image-add'); ?>',
+                    success: function(data, textStatus, jqXHR) {
+                        $('.modal-body').html(data);
+                    }
+                })
+            });
+
+            $(document).on('click', '.js_image_add_submit', function() {
+                $('.js_register_modal').modal('show');
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '<?= $this->url('image-add'); ?>',
+                    success: function(data, textStatus, jqXHR) {
+                        $('.modal-body').html(data);
+                    }
+                })
             });
         });
     </script>

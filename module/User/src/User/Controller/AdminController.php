@@ -87,7 +87,6 @@ class AdminController extends AbstractActionController
     public function removeAction()
     {
         $user = $this->getUserSession()->offsetGet('user');
-		date
 
         if (!$user->isAdmin()) {
             return $this->getResponse()->setStatusCode(403);

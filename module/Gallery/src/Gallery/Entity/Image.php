@@ -70,12 +70,36 @@ class Image
      *     nullable = true
      * )
      */
-    public $path;
+    private $path;
 
     /**
      * @var mixed the file.
      */
-    public $file;
+    private $file;
+
+    /**
+     * @var \DateTime The create date.
+     *
+     * @ORM\Column(
+     *      name = "create_at",
+     *      type = "datetime"
+     * )
+     */
+    private $createAt;
+
+    /**
+     * @var integer the width.
+     *
+     * @ORM\Column(type = "integer")
+     */
+    private $width;
+
+    /**
+     * @var integer the height.
+     *
+     * @ORM\Column(type = "integer")
+     */
+    private $height;
 
     /**
      * Constructor.
@@ -84,6 +108,7 @@ class Image
     {
         $this->public = false;
         $this->order = null;
+        $this->createAt = new \DateTime();
     }
 
     /**
@@ -213,7 +238,7 @@ class Image
      */
     public function populate($data)
     {
-        $this->file    = $data['file'];
+        $this->file = $data['file'];
     }
 
     /**
@@ -265,6 +290,64 @@ class Image
     }
 
     /**
+     * Gets the width.
+     *
+     * @return integer
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * Sets width.
+     *
+     * @param integer $width
+     *
+     * @return Image
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Gets the height.
+     *
+     * @return integer
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Sets height.
+     *
+     * @param integer $height
+     *
+     * @return Image
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Gets create date.
+     *
+     * @return \DateTime
+     */
+    public function getCreateAt()
+    {
+        return $this->createAt;
+    }
+
+    /**
      * Gets the absolute path.
      *
      * @return null|string
@@ -294,6 +377,11 @@ class Image
         return getcwd() .$this->getUploadDir();
     }
 
+    /**
+     * Return the ipload dir.
+     *
+     * @return string
+     */
     protected function getUploadDir()
     {
         return '/web/uploads/images/';
