@@ -44,13 +44,6 @@ class Image
     private $gallery;
 
     /**
-     * @var boolean TRUE if the image is public, else FALSE.
-     *
-     * @ORM\Column(type = "boolean")
-     */
-    private $public;
-
-    /**
      * @var null|integer The order in gallery.
      *
      * NULL if image is not public, else integer
@@ -106,7 +99,6 @@ class Image
      */
     public function __construct()
     {
-        $this->public = false;
         $this->order = null;
         $this->createAt = new \DateTime();
     }
@@ -190,21 +182,7 @@ class Image
      */
     public function isPublic()
     {
-        return $this->public;
-    }
-
-    /**
-     * Set is public TRUE if image is public, else FALSE.
-     *
-     * @param boolean $public
-     *
-     * @return Image
-     */
-    public function setPublic($public)
-    {
-        $this->public = $public;
-
-        return $this;
+        return $this->order !== null;
     }
 
     /**

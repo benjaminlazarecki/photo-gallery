@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManager,
 
 use Gallery\Entity\Image,
     Gallery\Form\ImageForm,
+    Gallery\Form\UpdateImageForm,
     Gallery\Form\ImageFormValidator;
 
 /**
@@ -80,7 +81,13 @@ class GalleryController extends AbstractActionController
         $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
 
         if ($owner === null) {
-            return $this->redirect()->toRoute('login');
+            return $this->redirect()->toUrl($_SERVER['HTTP_REFERER']);
+        }
+
+        $images = $owner->getGallery()->getImages()->toArray();
+        if (empty($images)) {
+            $message = sprintf('Your gallery is empty. You can add some images to your gallery by following link on the top page!');
+            $this->flashMessenger()->setNamespace('info')->addMessage($message);
         }
 
         $allGallery = $this->getEntityManager()->getRepository('Gallery\Entity\Gallery')->getAllPublicGallery();
@@ -89,7 +96,8 @@ class GalleryController extends AbstractActionController
         $view
             ->setTemplate('gallery/gallery/index')
             ->setVariable('randomGallery', $owner->getGallery())
-            ->setVariable('allGallery', $allGallery);
+            ->setVariable('allGallery', $allGallery)
+            ->setVariable('owner', $owner);
 
         return $view;
     }
@@ -117,62 +125,5 @@ class GalleryController extends AbstractActionController
             'randomGallery' => $randomGallery,
             'allGallery'    => $allGallery,
         );
-    }
-
-    /**
-     * The image add page.
-     *
-     * @return array
-     */
-    public function addAction()
-    {
-        $isXmlHttpRequest = $this->request->isXmlHttpRequest();
-
-        $viewmodel = new ViewModel();
-        $viewmodel->setTerminal($isXmlHttpRequest);
-
-        $user = $this->getUserSession()->offsetGet('user');
-        $owner = $this->getEntityManager()->getRepository('User\Entity\User')->find($user->getId());
-
-        $form = new ImageForm();
-
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $image = new Image();
-
-            $form->setInputFilter(new ImageFormValidator($this->getEntityManager()));
-
-            $data = $request->getPost()->toArray();
-
-            $filePost = $this->params()->fromFiles('file');
-            $file = array('file' => $filePost['name']);
-
-            $data = array_merge($data, $file);
-
-            $form->setData($data);
-
-            if ($form->isValid()) {
-                list($width, $height, $type, $attr) = getimagesize($this->params()->fromFiles('file')['tmp_name']);
-
-                $image->populate($form->getData());
-                $image
-                    ->setFile($this->params()->fromFiles('file'))
-                    ->setWidth($width)
-                    ->setHeight($height)
-                    ->setGallery($owner->getGallery());
-
-                $owner->getGallery()->addImage($image);
-
-                $this->getEntityManager()->flush();
-
-                $message = sprintf('@trans');
-                $this->flashMessenger()->setNamespace('success')->addMessage($message);
-                $this->redirect()->toRoute('gallery');
-            }
-        }
-
-        $viewmodel->setVariable('form', $form);
-
-        return $viewmodel;
     }
 }

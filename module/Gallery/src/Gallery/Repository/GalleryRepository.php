@@ -23,7 +23,8 @@ class GalleryRepository extends EntityRepository
             ->addSelect('gallery, user, image')
             ->innerJoin('gallery.owner', 'user')
             ->leftJoin('gallery.images', 'image')
-            ->andWhere('image.public = true');
+            ->andWhere('image.order IS NOT NULL')
+            ->orderBy('image.order', 'ASC');
 
         return $qb->getQuery()->getResult();
     }

@@ -37,6 +37,7 @@ class FlashMessagesHelper extends AbstractHelper
         $namespaces = array(
             'error',
             'success',
+            'info'
         );
 
         $result = '';

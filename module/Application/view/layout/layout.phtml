@@ -33,6 +33,7 @@
                         <ul class="nav">
                             <?php $userSession = new \Zend\Session\Container('user'); ?>
                             <?php if ($userSession->offsetExists('user')) : ?>
+                                <li><a href="<?= $this->url('gallery-show', array('username' => $userSession->offsetGet('user')->getUsername())); ?>" href="#">Profil</a></li>
                                 <li><a class="js_image_add" href="#">Add image</a></li>
                             <?php endif; ?>
                         </ul>
@@ -184,6 +185,12 @@
                         $('.modal-body').html(data);
                     }
                 })
+            });
+
+            $(document).on('click', '.js_image_remove', function(event) {
+                if (!confirm('Are you sure you want to remove this image?')) {
+                    event.preventDefault();
+                }
             });
         });
     </script>

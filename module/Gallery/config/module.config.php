@@ -6,6 +6,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'gallery' => 'Gallery\Controller\GalleryController',
+            'image'   => 'Gallery\Controller\ImageController',
         ),
     ),
 
@@ -39,8 +40,28 @@ return array(
                 'options' => array(
                     'route'    => '/image/add',
                     'defaults' => array(
-                        'controller' => 'gallery',
+                        'controller' => 'image',
                         'action'     => 'add',
+                    ),
+                ),
+            ),
+            'image-update' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/image/update',
+                    'defaults' => array(
+                        'controller' => 'image',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
+            'image-remove' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/image/remove',
+                    'defaults' => array(
+                        'controller' => 'image',
+                        'action'     => 'remove',
                     ),
                 ),
             ),
