@@ -75,7 +75,7 @@ class AdminController extends AbstractActionController
         $users = $this->getEntityManager()->getRepository('User\Entity\User')->getAllUserForAdmin();
 
         return array(
-            'users'         => $users,
+            'users' => $users,
         );
     }
 

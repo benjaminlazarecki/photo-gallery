@@ -33,8 +33,12 @@
                         <ul class="nav">
                             <?php $userSession = new \Zend\Session\Container('user'); ?>
                             <?php if ($userSession->offsetExists('user')) : ?>
-                                <li><a href="<?= $this->url('gallery-show', array('username' => $userSession->offsetGet('user')->getUsername())); ?>" href="#">Profil</a></li>
-                                <li><a class="js_image_add" href="#">Add image</a></li>
+                                <?php if (!$userSession->offsetGet('user')->isAdmin()) : ?>
+                                    <li><a href="<?= $this->url('gallery-show', array('username' => $userSession->offsetGet('user')->getUsername())); ?>" href="#">Profil</a></li>
+                                    <li><a class="js_image_add" href="#">Add image</a></li>
+                                <?php else : ?>
+                                    <li><a href="<?= $this->url('admin') ?>">Admin</a></li>
+                                <?php endif; ?>
                             <?php endif; ?>
                         </ul>
                         <?php if (!$userSession->offsetExists('user')) : ?>

@@ -120,6 +120,10 @@ class LoginController extends AbstractActionController
 
         $router = $this->getEvent()->getRouter();
         if ($user->isAdmin()) {
+            $jsonModel->setVariable('redirect', $router->assemble(
+                array('username' => $user->getUsername()),
+                array('name' => 'admin')
+            ));
 
             error_reporting(0);
             // That kill kitty but i have an strange error :

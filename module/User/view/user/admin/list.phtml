@@ -8,6 +8,7 @@
             <th>Email</th>
             <th>Age</th>
             <th>Attempts</th>
+            <th>Images</th>
             <th>Enable</th>
             <th>Action</th>
         </tr>
@@ -22,6 +23,7 @@
             <td><?= $user->getEmail(); ?></td>
             <td><?= $user->getAge() ?></td>
             <td><?= $user->getAttempt() ?></td>
+            <td><?= count($user->getGallery()->getImages()) ?></td>
             <td><?php if ($user->isEnable()) : ?>Yes<?php else :?>No<?php endif; ?></td>
             <td>
                 <a href="<?= $this->url('remove-user', array('username' => $user->getUsername())) ?>"
