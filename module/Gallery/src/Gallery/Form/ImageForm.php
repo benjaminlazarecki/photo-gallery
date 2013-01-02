@@ -9,7 +9,7 @@ class ImageForm extends Form
 {
     public function __construct($name = null)
     {
-        $file = new Element\File('file');
+        $file = new Element\File('image');
 
         // we want to ignore the name passed
         parent::__construct('image');

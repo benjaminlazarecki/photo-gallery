@@ -216,7 +216,7 @@ class Image
      */
     public function populate($data)
     {
-        $this->file = $data['file'];
+        $this->file = $data['image'];
     }
 
     /**

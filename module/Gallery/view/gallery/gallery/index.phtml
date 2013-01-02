@@ -27,14 +27,14 @@
                 <span><b>Create :</b> <?= $image->getCreateAt()->format('Y-m-d H:i:s'); ?></span><br />
                 <span><b>Size :</b> <?= $image->getWidth() ?>px / <?= $image->getHeight() ?>px</span>
                 <?php if (isset($owner) && $randomGallery->getOwner()->getId() == $owner->getId()): ?>
-                <form action="<?= $this->url('image-update') ?>" method="POST">
+                    <form class="form-inline" action="<?= $this->url('image-update') ?>" method="POST">
                         <label><b>Order:</b></label>
                         <input type="hidden" name="id" value="<?= $image->getId() ?>"/>
                         <input type="number" class="input-small" name="order" value="<?= $image->getOrder() ?>"/>
                         <input class="btn btn-primary btn-small" type="submit" name="submit" value="Update"/>
                     </form>
 
-                    <form action="<?= $this->url('image-remove') ?>" method="POST">
+                    <form class="form-inline" action="<?= $this->url('image-remove') ?>" method="POST">
                         <input type="hidden" name="id" value="<?= $image->getId() ?>"/>
                         <input class="btn btn-danger btn-small js_image_remove" type="submit" name="submit" value="Remove"/>
                     </form>

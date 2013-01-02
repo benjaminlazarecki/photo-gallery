@@ -88,24 +88,24 @@ class ImageController extends AbstractActionController
         if ($request->isPost()) {
             $image = new Image();
 
-            $form->setInputFilter(new ImageFormValidator($this->getEntityManager()));
-
             $data = $request->getPost()->toArray();
 
-            $filePost = $this->params()->fromFiles('file');
-            $file = array('file' => $filePost['name']);
+            $filePost = $this->params()->fromFiles('image');
+            $file = array('image' => $filePost['tmp_name']);
 
-            $data = array_merge($data, $file);
+            $data = array_merge($data, $file, $filePost);
 
             $form->setData($data);
 
+            $form->setInputFilter(new ImageFormValidator());
+
             if ($form->isValid()) {
-                list($width, $height, $type, $attr) = getimagesize($this->params()->fromFiles('file')['tmp_name']);
+                list($width, $height, $type, $attr) = getimagesize($filePost['tmp_name']);
 
                 $image->populate($form->getData());
                 $image
-                    ->setFile($this->params()->fromFiles('file'))
-                    ->setName($this->params()->fromFiles('file')['name'])
+                    ->setFile($filePost)
+                    ->setName($filePost['name'])
                     ->setWidth($width)
                     ->setHeight($height)
                     ->setGallery($owner->getGallery());

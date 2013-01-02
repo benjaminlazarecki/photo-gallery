@@ -10,7 +10,7 @@ $form->setAttribute('action', $this->url('image-add'));
 $form->prepare();
 
 echo $this->form()->openTag($form);
-echo $this->formRow($form->get('file'));
+echo $this->formRow($form->get('image'));
 echo '<input type="submit" value="Add"/>';
 echo $this->form()->closeTag();
 
