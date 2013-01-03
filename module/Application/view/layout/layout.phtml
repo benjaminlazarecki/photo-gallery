@@ -18,6 +18,7 @@
                                       ->prependFile($this->basePath() . '/js/bootstrap.min.js')
                                       ->prependFile($this->basePath() . '/js/jquery.min.js') ?>
 
+        <script src="http://api.jquery.com/scripts/events.js"></script>
     </head>
     <body>
         <div class="navbar navbar-fixed-top">
@@ -128,7 +129,7 @@
                 })
             });
 
-            $('.js_register_modal').on('click', '.js_register_submit', function() {
+            submitRegister = function() {
                 email         = $('.js_register_modal input[name = "email"]').val();
                 username      = $('.js_register_modal input[name = "username"]').val();
                 age           = $('.js_register_modal input[name = "age"]').val();
@@ -155,6 +156,17 @@
                         }
                     }
                 })
+            }
+
+            $('.js_register_modal').on('click', '.js_register_submit', function() {
+                submitRegister();
+            });
+
+            $(".js_register_modal").keypress(function(event) {
+                // 'Enter' is press we validate the form
+                if ( event.which == 13 ) {
+                    submitRegister();
+                }
             });
 
             $(document).on('click', '.js_remove_user', function(event) {
