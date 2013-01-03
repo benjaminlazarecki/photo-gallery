@@ -5,14 +5,17 @@ namespace User\Validator;
 use Zend\Validator\AbstractValidator;
 use Doctrine\ORM\EntityManager;
 
-/*
+/**
  * Validator for unique field.
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>
  */
 class UniqueField extends AbstractValidator
 {
-    const FIELD_FOUND = "FiledExist";
+    /**
+     * @const string Flag for existing field
+     */
+    const FIELD_FOUND = "FieldExist";
 
     /**
      * @var EntityManager the entity manager.
@@ -124,7 +127,7 @@ class UniqueField extends AbstractValidator
     }
 
     /**
-     * {@inheritodc}
+     * {@inheritdoc}
      */
     public function isValid($value)
     {

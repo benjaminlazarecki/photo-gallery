@@ -4,8 +4,18 @@ namespace Gallery\Form;
 
 use Zend\Form\Form;
 
+/**
+ * Form of update image.
+ *
+ * @author Benjamin Lazarecki <benjamin.lazarecki@gmail.com>
+ */
 class UpdateImageForm extends Form
 {
+    /**
+     * Constructor.
+     *
+     * @param string|null $name
+     */
     public function __construct($name = null)
     {
         // we want to ignore the name passed
@@ -29,5 +39,4 @@ class UpdateImageForm extends Form
             ),
         ));
     }
-
 }

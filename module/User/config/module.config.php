@@ -45,7 +45,7 @@ return array(
                 ),
             ),
             'login' => array(
-                'type' => 'User\Router\Segment',
+                'type' => 'literal',
                 'options' => array(
                     'route' => '/login',
                     'defaults' => array(

@@ -5,6 +5,8 @@ namespace User\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
+ * Repository of User.
+ *
  * @author Benjamin Lazarecki <benjamin@widop.com>
  */
 class UserRepository extends EntityRepository

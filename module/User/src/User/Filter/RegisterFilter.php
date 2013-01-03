@@ -7,6 +7,11 @@ use Doctrine\ORM\EntityManager;
 use Zend\InputFilter\InputFilter,
     Zend\Validator;
 
+/**
+ * Filter for registration.
+ *
+ * @author Benjamin Lazarecki <benjamin.lazarecki@gmail.com>
+ */
 class RegisterFilter extends InputFilter
 {
     /**

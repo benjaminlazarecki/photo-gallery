@@ -10,7 +10,6 @@ use Zend\Mvc\Controller\AbstractActionController,
 
 use Gallery\Entity\Image,
     Gallery\Form\ImageForm,
-    Gallery\Form\UpdateImageForm,
     Gallery\Form\ImageFormValidator;
 
 /**
@@ -86,14 +85,12 @@ class ImageController extends AbstractActionController
             $image = new Image();
 
             $data = $request->getPost()->toArray();
-
             $filePost = $this->params()->fromFiles('image');
             $file = array('image' => $filePost['tmp_name']);
 
             $data = array_merge($data, $file, $filePost);
 
             $form->setData($data);
-
             $form->setInputFilter(new ImageFormValidator());
 
             if ($form->isValid()) {

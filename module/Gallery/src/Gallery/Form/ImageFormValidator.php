@@ -5,6 +5,11 @@ namespace Gallery\Form;
 use Zend\InputFilter\InputFilter,
     Zend\Validator;
 
+/**
+ * Validator of image form.
+ *
+ * @author Benjamin Lazarecki <benjamin.lazarecki@gmail.com>
+ */
 class ImageFormValidator extends InputFilter
 {
     /**
