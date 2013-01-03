@@ -72,36 +72,45 @@ class GalleryController extends AbstractActionController
      */
     public function showAction()
     {
+        $em = $this->getEntityManager();
+
         $username = $this->getEvent()->getRouteMatch()->getParam('username');
 
         if ($username === null) {
             return $this->redirect()->toRoute('gallery');
         }
 
-        $owner = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
+        $owner = $this->em->getRepository('User\Entity\User')->findOneByUsername($username);
 
         if ($owner === null) {
             return $this->redirect()->toUrl($_SERVER['HTTP_REFERER']);
         }
 
-        $images = $owner->getGallery()->getImages()->toArray();
-        if (empty($images)) {
-            $message = sprintf('Your gallery is empty. You can add some images to your gallery by following link on the top page!');
-            $this->flashMessenger()->setNamespace('info')->addMessage($message);
+        $user = null;
+        if ($this->getUserSession()->offsetExists('user')) {
+            $user = $this->getEntityManager()->getRepository('User\Entity\User')
+                ->find($this->getUserSession()->offsetGet('user')->getId());
+
+            $images = $em->getRepository('Gallery\Entity\Image')->findBy(
+                array('gallery' => $user->getGallery()),
+                array('order' => 'ASC')
+            );
+
+            if (empty($images)) {
+                $message = sprintf('Your gallery is empty. You can add some images to your gallery by following link on the top page!');
+                $this->flashMessenger()->setNamespace('info')->addMessage($message);
+            }
+        } else {
+            $images = $this->getEntityManager()->getRepository('Gallery\Entity\Image')->getImages($owner->getGallery());
         }
 
         $allGallery = $this->getEntityManager()->getRepository('Gallery\Entity\Gallery')->getAllPublicGallery();
-
-        $user = null;
-        if ($this->getUserSession()->offsetExists('user')) {
-            $user = $this->getEntityManager()->getRepository('User\Entity\User')->find(
-                $this->getUserSession()->offsetGet('user')->getId());
-        }
 
         $view = new ViewModel();
         $view
             ->setTemplate('gallery/gallery/index')
             ->setVariable('randomGallery', $owner->getGallery())
+            ->setVariable('images', $images)
             ->setVariable('allGallery', $allGallery)
             ->setVariable('owner', $owner)
             ->setVariable('user', $user);
@@ -127,10 +136,12 @@ class GalleryController extends AbstractActionController
         }
 
         $randomGallery = $allGallery[rand(0, count($allGallery) - 1)];
+        $images = $this->getEntityManager()->getRepository('Gallery\Entity\Image')->getImages($randomGallery);
 
         return array(
             'randomGallery' => $randomGallery,
             'allGallery'    => $allGallery,
+            'images'        => $images,
         );
     }
 }

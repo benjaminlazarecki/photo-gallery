@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Represent an image upload by a user.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass = "Gallery\Repository\ImageRepository")
  * @ORM\Table(name = "image")
+ *
  * @ORM\HasLifecycleCallbacks
  *
  * @author Benjamin Lazarecki <benjamin@widop.com>

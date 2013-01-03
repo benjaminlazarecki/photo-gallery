@@ -17,13 +17,17 @@
 
 <div class="span9">
 <?php $i = 0; ?>
-<?php foreach ($this->randomGallery->getImages() as $image) : ?>
+<?php foreach ($this->images as $image) : ?>
     <?php if ($image->isPublic() || isset($user) && $user !== null && $randomGallery->getOwner()->getId() == $user->getId()): ?>
         <?php if ($i == 0): ?>
             <div class="row">
         <?php endif; ?>
-            <div class="box span3">
-                <img style="width:  200px;" src="../uploads/images/<?= $image->getPath(); ?>" alt="image"/><br />
+            <div class="span3">
+                <div class="box">
+                    <a class="lightbox" href="../uploads/images/<?= $image->getPath() ?>" >
+                        <img title="<?= $image->getGallery()->getOwner()->getUsername() . ' - ' . $image->getName() ?>" style="width:  200px;" src="../uploads/images/<?= $image->getPath(); ?>" alt="image"/>
+                    </a>
+                </div>
                 <span><b>Create :</b> <?= $image->getCreateAt()->format('Y-m-d H:i:s'); ?></span><br />
                 <span><b>Size :</b> <?= $image->getWidth() ?>px / <?= $image->getHeight() ?>px</span>
                 <?php if (isset($user) && $user !== null && $randomGallery->getOwner()->getId() == $user->getId()): ?>
