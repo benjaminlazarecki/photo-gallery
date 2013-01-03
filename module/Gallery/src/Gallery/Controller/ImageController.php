@@ -73,10 +73,7 @@ class ImageController extends AbstractActionController
      */
     public function addAction()
     {
-        $isXmlHttpRequest = $this->request->isXmlHttpRequest();
-
         $viewmodel = new ViewModel();
-        $viewmodel->setTerminal($isXmlHttpRequest);
         $viewmodel->setTemplate('gallery/gallery/add');
 
         $user = $this->getUserSession()->offsetGet('user');
@@ -205,4 +202,3 @@ class ImageController extends AbstractActionController
         return $image;
     }
 }
-

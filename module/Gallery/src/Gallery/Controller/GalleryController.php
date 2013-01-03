@@ -92,12 +92,19 @@ class GalleryController extends AbstractActionController
 
         $allGallery = $this->getEntityManager()->getRepository('Gallery\Entity\Gallery')->getAllPublicGallery();
 
+        $user = null;
+        if ($this->getUserSession()->offsetExists('user')) {
+            $user = $this->getEntityManager()->getRepository('User\Entity\User')->find(
+                $this->getUserSession()->offsetGet('user')->getId());
+        }
+
         $view = new ViewModel();
         $view
             ->setTemplate('gallery/gallery/index')
             ->setVariable('randomGallery', $owner->getGallery())
             ->setVariable('allGallery', $allGallery)
-            ->setVariable('owner', $owner);
+            ->setVariable('owner', $owner)
+            ->setVariable('user', $user);
 
         return $view;
     }

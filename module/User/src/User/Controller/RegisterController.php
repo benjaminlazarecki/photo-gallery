@@ -55,7 +55,7 @@ class RegisterController extends AbstractActionController
      */
     public function registerAction()
     {
-		$jsonModel = new JsonModel();
+        $jsonModel = new JsonModel();
         $viewmodel = new ViewModel();
         $viewmodel->setTerminal(true);
 
@@ -82,9 +82,9 @@ class RegisterController extends AbstractActionController
                 $message = 'Thank you for your registration! Please check your mail to get your password!';
                 $this->flashMessenger()->setNamespace('success')->addMessage($message);
 
-				$jsonModel->setVariable('finish', true);
+                $jsonModel->setVariable('finish', true);
 
-				error_reporting(0);
+                error_reporting(0);
 
                 return $jsonModel;
             }
@@ -127,4 +127,3 @@ class RegisterController extends AbstractActionController
         $transport->send($message);
     }
 }
-

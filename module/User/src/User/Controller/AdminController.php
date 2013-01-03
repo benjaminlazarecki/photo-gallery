@@ -111,11 +111,11 @@ class AdminController extends AbstractActionController
         return $this->redirect()->toRoute('admin');
     }
 
-	/**
-	 * Unblock a user.
-	 *
-	 * @return mixed
-	 */
+    /**
+     * Unblock a user.
+     *
+     * @return mixed
+     */
     public function unblockAction()
     {
         $user = $this->getUserSession()->offsetGet('user');
@@ -130,9 +130,9 @@ class AdminController extends AbstractActionController
         $user = $this->getEntityManager()->getRepository('User\Entity\User')->findOneByUsername($username);
 
         if ($user !== null) {
-			$user
-				->setEnable(true)
-				->resetAttempt();
+            $user
+                ->setEnable(true)
+                ->resetAttempt();
 
             $this->getEntityManager()->flush();
 

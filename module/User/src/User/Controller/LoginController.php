@@ -128,7 +128,6 @@ class LoginController extends AbstractActionController
             error_reporting(0);
             // That kill kitty but i have an strange error :
             //Unknown: &quot;id&quot; returned as member variable from __sleep() but does not exist in Unknown on line 0
-
             return $jsonModel;
         }
 
@@ -165,6 +164,7 @@ class LoginController extends AbstractActionController
             if ($user->getAttempt() === 3) {
                 $user->setEnable(false);
                 $this->getEntityManager()->flush();
+
                 return 'disable';
             }
 

@@ -34,9 +34,9 @@ class RegisterFilter extends InputFilter
         $this->add(array(
             'name'       => 'email',
             'required'   => true,
-			'validators' => array(
-				array(
-					'name' => 'User\Validator\UniqueField',
+            'validators' => array(
+                array(
+                    'name' => 'User\Validator\UniqueField',
                     'options' => array(
                         'entityManager' => $em,
                         'repository'    => 'User\Entity\User',
@@ -52,4 +52,3 @@ class RegisterFilter extends InputFilter
         ));
     }
 }
-

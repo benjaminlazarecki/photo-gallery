@@ -2,8 +2,6 @@
 
 namespace Gallery;
 
-use Zend\Db\ResultSet\ResultSet;
-
 /**
  * Gallery Module
  *

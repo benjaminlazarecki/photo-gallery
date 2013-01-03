@@ -115,13 +115,11 @@ class AlbumTableTest extends PHPUnit_Framework_TestCase
 
         $albumTable = new AlbumTable($mockTableGateway);
 
-        try
-        {
+        try {
             $albumTable->getAlbum(123);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->assertSame('Could not find row 123', $e->getMessage());
+
             return;
         }
 

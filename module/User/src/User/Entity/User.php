@@ -363,7 +363,7 @@ class User
 
     /**
      * Encrypt password on pre persist and preupdate if plainPassword is not null.
-     * 
+     *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
@@ -376,4 +376,3 @@ class User
         }
     }
 }
-

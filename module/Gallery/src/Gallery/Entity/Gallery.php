@@ -108,7 +108,7 @@ class Gallery
      */
     public function setImages($images)
     {
-        foreach($images as $image) {
+        foreach ($images as $image) {
             $this->addImage($image);
         }
 
@@ -129,4 +129,3 @@ class Gallery
         return $this;
     }
 }
-

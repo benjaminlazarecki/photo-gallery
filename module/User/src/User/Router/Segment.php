@@ -17,8 +17,7 @@ class Segment extends BaseSegment
      */
     public function match(Request $request, $pathOffset = null)
     {
-        if (!$request->isXmlHttpRequest())
-        {
+        if (!$request->isXmlHttpRequest()) {
             return null;
         }
 

@@ -33,4 +33,3 @@ class ImageFormValidator extends InputFilter
         ));
     }
 }
-

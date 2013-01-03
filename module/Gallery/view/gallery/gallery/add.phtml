@@ -3,14 +3,26 @@
 $title = 'Add new image';
 $this->headTitle($title);
 ?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('image-add'));
 $form->prepare();
 
 echo $this->form()->openTag($form);
-echo $this->formRow($form->get('image'));
-echo '<input type="submit" value="Add"/>';
+?>
+<fieldset>
+<legend><?php echo $this->escapeHtml($title); ?></legend>
+<?php $errors = $form->get('image')->getMessages(); ?>
+<div class="control-group <?php if (!empty($errors)) : ?>error text-error<?php endif; ?>">
+    <div class="controls">
+        <?= $this->formElementErrors($form->get('image')); ?>
+        <div class="input-prepend">
+            <?= $this->formFile($form->get('image')); ?>
+        </div>
+    </div>
+</div>
+<input type="submit" value="Add" class="btn btn-primary"/>
+</fieldset>
+<?php
 echo $this->form()->closeTag();
 

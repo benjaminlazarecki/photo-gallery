@@ -29,4 +29,3 @@ class GalleryRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 }
-

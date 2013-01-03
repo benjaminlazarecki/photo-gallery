@@ -17,8 +17,8 @@
 
 <div class="span9">
 <?php $i = 0; ?>
-<?php foreach($this->randomGallery->getImages() as $image) : ?>
-    <?php if ($image->isPublic() || isset($owner) && $randomGallery->getOwner()->getId() == $owner->getId()): ?>
+<?php foreach ($this->randomGallery->getImages() as $image) : ?>
+    <?php if ($image->isPublic() || isset($user) && $user !== null && $randomGallery->getOwner()->getId() == $user->getId()): ?>
         <?php if ($i == 0): ?>
             <div class="row">
         <?php endif; ?>
@@ -26,7 +26,7 @@
                 <img style="width:  200px;" src="../uploads/images/<?= $image->getPath(); ?>" alt="image"/><br />
                 <span><b>Create :</b> <?= $image->getCreateAt()->format('Y-m-d H:i:s'); ?></span><br />
                 <span><b>Size :</b> <?= $image->getWidth() ?>px / <?= $image->getHeight() ?>px</span>
-                <?php if (isset($owner) && $randomGallery->getOwner()->getId() == $owner->getId()): ?>
+                <?php if (isset($user) && $user !== null && $randomGallery->getOwner()->getId() == $user->getId()): ?>
                     <form class="form-inline" action="<?= $this->url('image-update') ?>" method="POST">
                         <label><b>Order:</b></label>
                         <input type="hidden" name="id" value="<?= $image->getId() ?>"/>

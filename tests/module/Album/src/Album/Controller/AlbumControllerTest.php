@@ -5,7 +5,6 @@ namespace Album\Controller;
 use Album\Controller\AlbumController;
 use Zend\Http\Request;
 use Zend\Http\Response;
-use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use PHPUnit_Framework_TestCase;
 
