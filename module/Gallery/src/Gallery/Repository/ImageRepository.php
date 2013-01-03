@@ -33,4 +33,3 @@ class ImageRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 }
-

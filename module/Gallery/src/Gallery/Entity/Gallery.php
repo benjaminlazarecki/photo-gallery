@@ -42,7 +42,7 @@ class Gallery
      * @ORM\OneToMany(
      *      targetEntity = "Image",
      *      mappedBy     = "gallery",
-     *      cascade      = { "persist" }
+     *      cascade      = { "all" }
      * )
      */
     private $images;

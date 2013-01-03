@@ -23,7 +23,7 @@ class ImageFormValidator extends InputFilter
                 ),
                 array(
                     'name' => 'File\Extension',
-                    'options' => array('extension' => 'jpeg, png')
+                    'options' => array('extension' => 'jpeg, jpg, png')
                 ),
                 array(
                     'name' => 'File\Size',
